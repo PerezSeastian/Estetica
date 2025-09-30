@@ -1,0 +1,106 @@
+/* Calendario */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Encabezado */
+h1 {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin: 0 0 20px 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Layout */
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 25px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Tarjetas (calendario y formulario) */
+#calendar,
+form {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Título formulario */
+form h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #28a745;
+  text-align: center;
+}
+
+/* Labels */
+form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Inputs y selects */
+form input,
+form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #28a745;
+  outline: none;
+  background: white;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+}
+
+/* Botón */
+form button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+  border: none;
+  background: #28a745;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #218838;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
