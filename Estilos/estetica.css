@@ -1,0 +1,241 @@
+/* Estilos para la vista de Estética Canina - Sucursales */
+.services-hero {
+    background: linear-gradient(135deg, #17a2b8 0%, #28a745 100%);
+    padding: 80px 0 50px;
+    color: white;
+    text-align: center;
+}
+
+.service-options {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.option-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 3px solid transparent;
+}
+
+.option-card:hover {
+    transform: translateY(-10px);
+    border-color: #17a2b8;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.option-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #17a2b8 0%, #28a745 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: white;
+    font-size: 40px;
+}
+
+.option-card h3 {
+    color: #17a2b8;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.option-card p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.btn-option {
+    background: linear-gradient(135deg, #17a2b8 0%, #28a745 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(23, 162, 184, 0.4);
+    color: white;
+}
+
+/* Estilos para los catálogos de sucursales */
+.catalog-section {
+    display: none;
+    padding: 60px 0;
+}
+
+.catalog-active {
+    display: block;
+}
+
+.catalog-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.catalog-header h2 {
+    color: #17a2b8;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.back-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #5a6268;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Estilos para las tarjetas de sucursal */
+.sucursal-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.sucursal-card:hover {
+    transform: translateY(-5px);
+    border-color: #17a2b8;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.sucursal-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #17a2b8 0%, #28a745 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.sucursal-card h4 {
+    color: #17a2b8;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.sucursal-info {
+    margin: 20px 0;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    background: #f8f9fa;
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #17a2b8;
+    font-size: 16px;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.info-content {
+    flex: 1;
+}
+
+.info-content strong {
+    color: #17a2b8;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.btn-select {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-select:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+/* Mapa placeholder */
+.map-placeholder {
+    background: #e9ecef;
+    border-radius: 10px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-weight: 600;
+    margin-top: 20px;
+    border: 2px dashed #17a2b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-hero, .service-options {
+        padding: 40px 0;
+    }
+    
+    .option-card {
+        padding: 30px 20px;
+    }
+    
+    .sucursal-card {
+        padding: 20px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .info-icon {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
