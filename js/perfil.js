@@ -1,18 +1,16 @@
-// Datos de ejemplo para las mascotas
+// Datos de ejemplo para las mascotas (solo nombre, especie, raza y edad)
 let pets = [
     {
         name: "Max",
         species: "Perro",
         breed: "Golden Retriever",
-        age: "3 años",
-        notes: "Le encanta jugar en el parque"
+        age: "3 años"
     },
     {
         name: "Luna",
         species: "Gato", 
         breed: "Siames",
-        age: "2 años",
-        notes: "Timida pero cariñosa"
+        age: "2 años"
     }
 ];
 
@@ -44,9 +42,6 @@ function loadPets() {
                     </div>
                     <div class="pet-detail">
                         <strong>Edad:</strong> ${pet.age}
-                    </div>
-                    <div class="pet-detail">
-                        <strong>Notas:</strong> ${pet.notes}
                     </div>
                 </div>
                 <div class="pet-actions">
@@ -93,7 +88,6 @@ function editPet(index) {
     document.getElementById('petSpecies').value = pet.species;
     document.getElementById('petBreed').value = pet.breed;
     document.getElementById('petAge').value = pet.age;
-    document.getElementById('petNotes').value = pet.notes;
     $('#petModal').modal('show');
 }
 
@@ -103,8 +97,7 @@ function savePet() {
         name: document.getElementById('petName').value,
         species: document.getElementById('petSpecies').value,
         breed: document.getElementById('petBreed').value,
-        age: document.getElementById('petAge').value,
-        notes: document.getElementById('petNotes').value
+        age: document.getElementById('petAge').value
     };
 
     if (index === '') {
