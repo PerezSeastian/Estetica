@@ -109,6 +109,16 @@
                                     name="direccion" required>
                             </div>
 
+                            <div class="form-group form-check text-left mb-3">
+                                <input type="checkbox" class="form-check-input" id="terminos" required>
+                                <label class="form-check-label" for="terminos">
+                                    Acepto los
+                                    <a href="#" onclick="verTerminos(event)" class="text-primary">Términos y
+                                        Condiciones</a>
+                                </label>
+                            </div>
+
+
                             <div class="form-group">
                                 <input type="submit" value="Registrarse" class="btn btn-primary btn-block py-2">
                             </div>
@@ -165,8 +175,34 @@
 </body>
 
 <script>
+    function verTerminos(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Términos y Condiciones',
+            html: `
+        <p>Estos son los términos y condiciones de ejemplo.</p>
+        <p>Cuando tengamos el documento oficial se sustituirá aquí 🐾.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Nullam vehicula, nunc vel facilisis commodo, augue erat congue arcu, eget vulputate risus elit nec magna.</p>
+      `,
+            icon: 'info',
+            confirmButtonText: 'Cerrar'
+        });
+    }
+
+    // Validación del checkbox antes de enviar
     $("#registroForm").submit(function (e) {
         e.preventDefault();
+
+        if (!$("#terminos").is(":checked")) {
+            Swal.fire({
+                title: 'Atención',
+                text: 'Debes aceptar los términos y condiciones para registrarte.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
 
         // Simula un registro en proceso
         Swal.fire({
@@ -178,7 +214,6 @@
             timer: 1500
         });
 
-        // Después de 1.5 seg simula el éxito
         setTimeout(function () {
             Swal.fire({
                 title: '¡Registro Exitoso!',
@@ -187,13 +222,13 @@
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirigir al inicio de sesión
-                    window.location.href = "registroM.html";
+                    window.location.href = "iniciosesion.html"; // Redirige al login
                 }
             });
             $("#registroForm")[0].reset();
         }, 1500);
     });
 </script>
+
 
 </html>
