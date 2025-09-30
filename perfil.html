@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Pet Sitting - Perfil de Usuario</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex align-items-center">
+                    <p class="mb-0 phone pl-md-2">
+                        <a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a>
+                        <a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+                    </p>
+                </div>
+                <div class="col-md-6 d-flex justify-content-md-end">
+                    <div class="social-media">
+                        <p class="mb-0 d-flex">
+                            <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                    class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+                            <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                    class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+                            <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                    class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+                            <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                    class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><span class="flaticon-pawprint-1 mr-2"></span>Pet sitting</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item active"><a href="about.html" class="nav-link">Perfil</a></li>
+                    <li class="nav-item"><a href="vet.html" class="nav-link">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN DE PERFIL -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="profile-card">
+                        <!-- Header del Perfil -->
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <span class="fa fa-user"></span>
+                            </div>
+                            <h2 id="userName">Juan Pérez</h2>
+                            <p class="mb-0">Dueño de mascotas</p>
+                        </div>
+                        
+                        <!-- Información del Usuario -->
+                        <div class="profile-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="info-group">
+                                        <div class="info-label">Email</div>
+                                        <div class="info-value" id="userEmail">juan.perez@email.com</div>
+                                    </div>
+                                    <div class="info-group">
+                                        <div class="info-label">Teléfono</div>
+                                        <div class="info-value" id="userPhone">+1 234 567 890</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-group">
+                                        <div class="info-label">Dirección</div>
+                                        <div class="info-value" id="userAddress">Calle Principal #123, Ciudad</div>
+                                    </div>
+                                    <div class="info-group">
+                                        <div class="info-label">Miembro desde</div>
+                                        <div class="info-value" id="userSince">Enero 2024</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <button class="btn btn-edit" data-toggle="modal" data-target="#editProfileModal">
+                                    <span class="fa fa-edit mr-2"></span>Editar Perfil
+                                </button>
+                            </div>
+                            
+                            <!-- Sección de Mascotas -->
+                            <div class="pets-section">
+                                <h3 class="section-title">Mis Mascotas</h3>
+                                
+                                <div id="petsContainer">
+                                    <!-- Las mascotas se cargarán aquí dinámicamente -->
+                                </div>
+                                
+                                <!-- Botón Agregar Mascota -->
+                                <button class="btn btn-add-pet" data-toggle="modal" data-target="#addPetModal">
+                                    <span class="fa fa-plus mr-2"></span>Agregar Nueva Mascota
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Editar Perfil -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="form-group">
+                            <label for="editName">Nombre</label>
+                            <input type="text" class="form-control" id="editName" value="Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail">Email</label>
+                            <input type="email" class="form-control" id="editEmail" value="juan.perez@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPhone">Teléfono</label>
+                            <input type="tel" class="form-control" id="editPhone" value="+1 234 567 890">
+                        </div>
+                        <div class="form-group">
+                            <label for="editAddress">Dirección</label>
+                            <textarea class="form-control" id="editAddress" rows="3">Calle Principal #123, Ciudad</textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-save" onclick="saveProfile()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Agregar/Editar Mascota -->
+    <div class="modal fade" id="petModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="petModalTitle">Agregar Mascota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="petForm">
+                        <input type="hidden" id="editPetIndex">
+                        <div class="form-group">
+                            <label for="petName">Nombre de la Mascota</label>
+                            <input type="text" class="form-control" id="petName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="petSpecies">Especie</label>
+                            <select class="form-control" id="petSpecies" required>
+                                <option value="">Seleccionar especie</option>
+                                <option value="Perro">Perro</option>
+                                <option value="Gato">Gato</option>
+                                <option value="Ave">Ave</option>
+                                <option value="Roedor">Roedor</option>
+                                <option value="Reptil">Reptil</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="petBreed">Raza</label>
+                            <input type="text" class="form-control" id="petBreed">
+                        </div>
+                        <div class="form-group">
+                            <label for="petAge">Edad</label>
+                            <input type="text" class="form-control" id="petAge" placeholder="Ej: 3 años">
+                        </div>
+                        <div class="form-group">
+                            <label for="petNotes">Notas/Características</label>
+                            <textarea class="form-control" id="petNotes" rows="3" placeholder="Comportamiento, gustos, cuidados especiales..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-save" onclick="savePet()">Guardar Mascota</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación Eliminar -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que quieres eliminar esta mascota? Esta acción no se puede deshacer.</p>
+                    <input type="hidden" id="deletePetIndex">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-delete-pet" onclick="confirmDeletePet()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <!-- ... (tu footer original) ... -->
+    </footer>
+
+    <!-- JavaScript para la interactividad -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script>
+        // Datos de ejemplo para las mascotas
+        let pets = [
+            {
+                name: "Max",
+                species: "Perro",
+                breed: "Golden Retriever",
+                age: "3 años",
+                notes: "Le encanta jugar en el parque"
+            },
+            {
+                name: "Luna",
+                species: "Gato", 
+                breed: "Siames",
+                age: "2 años",
+                notes: "Timida pero cariñosa"
+            }
+        ];
+
+        // Cargar mascotas al iniciar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPets();
+        });
+
+        // Función para cargar las mascotas en el HTML
+        function loadPets() {
+            const petsContainer = document.getElementById('petsContainer');
+            petsContainer.innerHTML = '';
+
+            pets.forEach((pet, index) => {
+                const petCard = `
+                    <div class="pet-card">
+                        <div class="d-flex align-items-center">
+                            <div class="pet-avatar">
+                                <span class="fa fa-paw"></span>
+                            </div>
+                            <div class="pet-info flex-grow-1">
+                                <h5>${pet.name}</h5>
+                                <p class="mb-1"><strong>Especie:</strong> ${pet.species}</p>
+                                <p class="mb-1"><strong>Raza:</strong> ${pet.breed}</p>
+                                <p class="mb-1"><strong>Edad:</strong> ${pet.age}</p>
+                                <p class="mb-0"><strong>Notas:</strong> ${pet.notes}</p>
+                            </div>
+                        </div>
+                        <div class="pet-actions text-right">
+                            <button class="btn-action btn-edit-pet" onclick="editPet(${index})">
+                                <span class="fa fa-edit mr-1"></span>Editar
+                            </button>
+                            <button class="btn-action btn-delete-pet" onclick="showDeleteConfirm(${index})">
+                                <span class="fa fa-trash mr-1"></span>Eliminar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                petsContainer.innerHTML += petCard;
+            });
+        }
+
+        // Función para guardar el perfil
+        function saveProfile() {
+            // Obtener valores del formulario
+            const name = document.getElementById('editName').value;
+            const email = document.getElementById('editEmail').value;
+            const phone = document.getElementById('editPhone').value;
+            const address = document.getElementById('editAddress').value;
+
+            // Actualizar la vista
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userEmail').textContent = email;
+            document.getElementById('userPhone').textContent = phone;
+            document.getElementById('userAddress').textContent = address;
+
+            // Cerrar modal
+            $('#editProfileModal').modal('hide');
+
+            // Aquí iría la llamada AJAX para guardar en el servidor
+            console.log('Perfil guardado:', { name, email, phone, address });
+            
+            // Mostrar mensaje de éxito
+            alert('Perfil actualizado correctamente!');
+        }
+
+        // Función para mostrar modal de agregar mascota
+        function showAddPetModal() {
+            document.getElementById('petModalTitle').textContent = 'Agregar Mascota';
+            document.getElementById('editPetIndex').value = '';
+            document.getElementById('petForm').reset();
+            $('#petModal').modal('show');
+        }
+
+        // Función para editar mascota
+        function editPet(index) {
+            const pet = pets[index];
+            document.getElementById('petModalTitle').textContent = 'Editar Mascota';
+            document.getElementById('editPetIndex').value = index;
+            document.getElementById('petName').value = pet.name;
+            document.getElementById('petSpecies').value = pet.species;
+            document.getElementById('petBreed').value = pet.breed;
+            document.getElementById('petAge').value = pet.age;
+            document.getElementById('petNotes').value = pet.notes;
+            $('#petModal').modal('show');
+        }
+
+        // Función para guardar mascota (agregar o editar)
+        function savePet() {
+            const index = document.getElementById('editPetIndex').value;
+            const petData = {
+                name: document.getElementById('petName').value,
+                species: document.getElementById('petSpecies').value,
+                breed: document.getElementById('petBreed').value,
+                age: document.getElementById('petAge').value,
+                notes: document.getElementById('petNotes').value
+            };
+
+            if (index === '') {
+                // Agregar nueva mascota
+                pets.push(petData);
+            } else {
+                // Editar mascota existente
+                pets[index] = petData;
+            }
+
+            // Recargar la lista
+            loadPets();
+
+            // Cerrar modal
+            $('#petModal').modal('hide');
+
+            // Aquí iría la llamada AJAX para guardar en el servidor
+            console.log('Mascota guardada:', petData);
+            
+            // Mostrar mensaje de éxito
+            alert('Mascota guardada correctamente!');
+        }
+
+        // Función para mostrar confirmación de eliminación
+        function showDeleteConfirm(index) {
+            document.getElementById('deletePetIndex').value = index;
+            $('#deleteConfirmModal').modal('show');
+        }
+
+        // Función para confirmar eliminación
+        function confirmDeletePet() {
+            const index = document.getElementById('deletePetIndex').value;
+            
+            // Eliminar mascota del array
+            pets.splice(index, 1);
+            
+            // Recargar la lista
+            loadPets();
+            
+            // Cerrar modal
+            $('#deleteConfirmModal').modal('hide');
+            
+            // Aquí iría la llamada AJAX para eliminar en el servidor
+            console.log('Mascota eliminada, índice:', index);
+            
+            // Mostrar mensaje de éxito
+            alert('Mascota eliminada correctamente!');
+        }
+
+        // Asignar eventos a los botones
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.btn-add-pet').addEventListener('click', showAddPetModal);
+        });
+    </script>
+
+    <!-- Los demás scripts de tu template -->
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
