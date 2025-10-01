@@ -473,3 +473,44 @@ body {
     justify-content: center;
   }
 }
+
+/*CALENDARIO */
+.date-select input {
+  background: #f9f9f9;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.date-select input:focus {
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, .25); /* verde */
+}
+.flatpickr-calendar {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.flatpickr-day {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.flatpickr-day:hover {
+  background: #e6f7ee;   
+  border-color: #28a745; 
+  color: #28a745;
+}
+
+.flatpickr-day.today {
+  background: #28a745;
+  color: #fff;
+  font-weight: bold;
+}
+
+.flatpickr-day.selected {
+  background: #218838; 
+  color: #fff;
+}
