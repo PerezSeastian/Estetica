@@ -84,13 +84,13 @@
                             <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
                                 <span class="fa fa-envelope text-muted"></span>
                                 <input type="email" class="form-control border-0" placeholder="Correo electrónico"
-                                    required>
+                                    name="correo" required>
                             </div>
                             <div
                                 class="form-group d-flex align-items-center border rounded mb-4 px-2 position-relative">
                                 <span class="fa fa-lock text-muted"></span>
                                 <input id="password" type="password" class="form-control border-0"
-                                    placeholder="Contraseña" required>
+                                    placeholder="Contraseña" name="password" required>
                                 <span class="fa fa-eye toggle-password"
                                     style="cursor:pointer; position:absolute; right:10px;"></span>
                             </div>
@@ -152,16 +152,61 @@
         document.getElementById("loginForm").addEventListener("submit", function (e) {
             e.preventDefault();
 
-            // Simular validación rápida
+            const formData = new FormData(this);
+
+            // Mostrar loading
             Swal.fire({
-                title: '¡Bienvenido!',
-                text: 'Has iniciado sesión correctamente 🐾',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirige al dashboard o página principal
-                    window.location.href = "index.html";
+                title: 'Verificando...',
+                text: 'Validando tus credenciales 🐾',
+                icon: 'info',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Enviar datos via AJAX
+            $.ajax({
+                url: 'include/login.php',
+                type: 'POST',
+                data: {
+                    correo: formData.get('correo'),
+                    password: formData.get('password')
+                },
+                dataType: 'json',
+                success: function (response) {
+                    Swal.close();
+
+                    if (response.success) {
+                        Swal.fire({
+                            title: '¡Bienvenido!',
+                            text: response.message + ' 🐾',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirige al perfil o página principal
+                                window.location.href = "index.php";
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.close();
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error de conexión. Intenta nuevamente.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 }
             });
         });

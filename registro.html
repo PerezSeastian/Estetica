@@ -191,6 +191,7 @@
     }
 
     // Validación del checkbox antes de enviar
+    // Validación del checkbox antes de enviar
     $("#registroForm").submit(function (e) {
         e.preventDefault();
 
@@ -204,29 +205,58 @@
             return;
         }
 
-        // Simula un registro en proceso
+        // Mostrar loading
         Swal.fire({
             title: 'Procesando...',
             text: 'Estamos registrando tu información 🐾',
             icon: 'info',
             allowOutsideClick: false,
             showConfirmButton: false,
-            timer: 1500
+            didOpen: () => {
+                Swal.showLoading();
+            }
         });
 
-        setTimeout(function () {
-            Swal.fire({
-                title: '¡Registro Exitoso!',
-                text: 'Tu cuenta fue creada correctamente',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "iniciosesion.html"; // Redirige al login
+        // Enviar datos via AJAX
+        $.ajax({
+            url: 'include/RegistroUsuario.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                Swal.close();
+
+                if (response.success) {
+                    Swal.fire({
+                        title: '¡Registro Exitoso!',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "registroM.html"; // Redirige al login
+                        }
+                    });
+                    $("#registroForm")[0].reset();
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 }
-            });
-            $("#registroForm")[0].reset();
-        }, 1500);
+            },
+            error: function () {
+                Swal.close();
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error de conexión. Intenta nuevamente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
     });
 </script>
 
