@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
     <link rel="stylesheet" href="css/animate.css">
@@ -70,61 +70,71 @@
         </div>
     </nav>
 
-<section class="ftco-section ftco-register" style="background-image: url(images/bg_3.jpg);">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-7 col-lg-6">
-                <div class="card shadow-lg rounded-lg p-4 ftco-animate" style="background: #fff;">
-                    <div class="text-center mb-4">
-                        <div class="bg-light rounded-circle d-inline-flex justify-content-center align-items-center"
-                            style="width: 80px; height: 80px;">
-                            <span class="fa-solid fa-dog fa-4x text-primary"></span>
+    <section class="ftco-section ftco-register" style="background-image: url(images/bg_3.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-6">
+                    <div class="card shadow-lg rounded-lg p-4 ftco-animate" style="background: #fff;">
+                        <div class="text-center mb-4">
+                            <div class="bg-light rounded-circle d-inline-flex justify-content-center align-items-center"
+                                style="width: 80px; height: 80px;">
+                                <span class="fa-solid fa-dog fa-4x text-primary"></span>
+                            </div>
+
+                            <h3 class="mt-3">Registro de Mascota</h3>
+                            <p class="text-muted">
+                                Estos datos son importantes para poder brindarte un mejor servicio 🐾
+                            </p>
                         </div>
 
-                        <h3 class="mt-3">Registro de Mascota</h3>
-                        <p class="text-muted">
-                            Estos datos son importantes para poder brindarte un mejor servicio 🐾
-                        </p>
-                    </div>
+                        <div id="formularios">
+                            <form id="formMascota" class="appointment">
+                                <input type="hidden" name="id_usuario"
+                                    value="<?php echo $_SESSION['usuario_temporal']; ?>">
 
-                    <div id="formularios">
-                        <form class="appointment petForm">
-                            <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
-                                <span class="fa-solid fa-shield-dog"></span>
-                                <input type="text" class="form-control border-0" placeholder="Nombre mascota" required>
-                            </div>
+                                <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
+                                    <span class="fa-solid fa-shield-dog"></span>
+                                    <input type="text" class="form-control border-0" name="nombre"
+                                        placeholder="Nombre mascota" required>
+                                </div>
 
-                            <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
-                                <span class="fas fa-dog"></span>
-                                <input type="text" class="form-control border-0" placeholder="Especie" required>
-                            </div>
+                                <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
+                                    <span class="fas fa-dog"></span>
+                                    <input type="text" class="form-control border-0" name="especie"
+                                        placeholder="Especie" required>
+                                </div>
 
-                            <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
-                                <span class="fas fa-tag"></span>
-                                <input type="text" class="form-control border-0" placeholder="Raza" required>
-                            </div>
+                                <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
+                                    <span class="fas fa-tag"></span>
+                                    <input type="text" class="form-control border-0" name="raza" placeholder="Raza"
+                                        required>
+                                </div>
 
-                            <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
-                                <span class="fa-solid fa-cake-candles"></span>
-                                <input type="text" class="form-control border-0" placeholder="Edad" required>
-                            </div>
+                                <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
+                                    <span class="fa-solid fa-cake-candles"></span>
+                                    <input type="number" class="form-control border-0" name="edad" placeholder="Edad"
+                                        required>
+                                </div>
 
-                            <div class="form-group">
-                                <input type="submit" value="Registrar mascota" class="btn btn-primary btn-block py-2">
-                            </div>
-                        </form>
-                    </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Registrar mascota"
+                                        class="btn btn-primary btn-block py-2">
+                                </div>
+                            </form>
 
-                    <div class="text-center">
-                        <p class="mb-0">¿Ya tienes cuenta? <a href="iniciosesion.html"
-                                class="text-primary">Inicia sesión aquí</a></p>
+
+                        </div>
+
+                        <div class="text-center">
+                            <p class="mb-0">¿Ya tienes cuenta? <a href="iniciosesion.html" class="text-primary">Inicia
+                                    sesión aquí</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!--Pie de pagina-->
 
@@ -166,52 +176,69 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    let contadorMascotas = 1;
-    document.querySelector("#formularios form").insertAdjacentHTML("afterbegin", 
-        `<h5 class="mb-3 text-primary">Mascota ${contadorMascotas}</h5>`
-    );
+        let contadorMascotas = 1;
+        document.querySelector("h3.mt-3").innerText = `Registro de Mascota ${contadorMascotas}`;
 
-    document.getElementById("formularios").addEventListener("submit", function (e) {
-        e.preventDefault();
+        document.getElementById("formMascota").addEventListener("submit", function (e) {
+            e.preventDefault();
+            let formData = new FormData(this);
 
-        Swal.fire({
-            icon: 'success',
-            title: `Mascota ${contadorMascotas} registrada 🐾`,
-            text: 'Los datos se han guardado correctamente',
-            showCancelButton: true,
-            confirmButtonText: 'Agregar otra mascota',
-            cancelButtonText: 'Finalizar registro'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                contadorMascotas++; 
-                let nuevoFormulario = e.target.cloneNode(true);
-                nuevoFormulario.querySelectorAll("input").forEach(input => {
-                    if (input.type !== "submit") input.value = "";
+            Swal.fire({
+                title: 'Guardando...',
+                text: 'Estamos registrando tu mascota 🐾',
+                icon: 'info',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            fetch("include/RegistroMascota.php", {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    Swal.close();
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: `Mascota ${contadorMascotas} registrada 🐕`,
+                            text: '¿Quieres registrar otra mascota?',
+                            showCancelButton: true,
+                            confirmButtonText: 'Sí, otra mascota',
+                            cancelButtonText: 'Finalizar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                contadorMascotas++;
+                                document.getElementById("formMascota").reset();
+                                document.querySelector("h3.mt-3").innerText = `Registro de Mascota ${contadorMascotas}`;
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Formulario listo',
+                                    text: `Ahora puedes registrar la Mascota ${contadorMascotas} 🐾`
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Registro completado 🎉',
+                                    text: `¡Has registrado ${contadorMascotas} mascota${contadorMascotas > 1 ? 's' : ''}!`,
+                                    confirmButtonText: 'Ir al inicio de sesión'
+                                }).then(() => {
+                                    window.location.href = "iniciosesion.html";
+                                });
+                            }
+                        });
+                    } else {
+                        Swal.fire('Error', data.message, 'error');
+                    }
+                })
+                .catch(() => {
+                    Swal.close();
+                    Swal.fire('Error', 'Error de conexión con el servidor', 'error');
                 });
-                let oldTitle = nuevoFormulario.querySelector("h5");
-                if (oldTitle) oldTitle.remove();
-                nuevoFormulario.insertAdjacentHTML("afterbegin", 
-                    `<h5 class="mb-3 text-primary">Mascota ${contadorMascotas}</h5>`
-                );
-
-                document.getElementById("formularios").appendChild(nuevoFormulario);
-
-                Swal.fire({
-                    icon: 'info',
-                    title: `Formulario listo para Mascota ${contadorMascotas}`,
-                    text: 'Ahora puedes registrar otra mascota 🐶'
-                });
-            } else {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Registro finalizado',
-                    text: `¡Has registrado ${contadorMascotas} mascota(s)! 🎉`
-                });
-                 window.location.href = "iniciosesion.html";
-            }
         });
-    });
-</script>
+    </script>
+
 
 </body>
 
