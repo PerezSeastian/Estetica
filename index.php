@@ -93,7 +93,7 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
   </nav>
 
   <!-- END nav -->
-  <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_1.jpg');"
+  <div class="hero-wrap js-fullheight" style="background-image: url('images/prue.png');"
     data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
