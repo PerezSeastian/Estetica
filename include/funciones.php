@@ -55,5 +55,6 @@ function registrarMascota($id_usuario, $nombre, $especie, $raza, $edad)
     } else {
         return ['success' => false, 'message' => 'Error: ' . mysqli_error($con)];
     }
+    
 }
 ?>
