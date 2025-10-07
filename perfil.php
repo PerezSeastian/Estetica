@@ -1,3 +1,22 @@
+<?php
+session_start();
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: iniciosesion.php');
+    exit;
+}
+
+require_once 'include/database.php';
+$conexion = conectarBD();
+
+$id_usuario = $_SESSION['id_usuario'];
+$sql_usuario = "SELECT nombre_completo, correo, telefono, direccion FROM usuarios WHERE id_usuario = $id_usuario";
+$resultado_usuario = $conexion->query($sql_usuario);
+$usuario = $resultado_usuario->fetch_assoc();
+
+$sql_mascotas = "SELECT id_mascota, nombre, especie, raza, edad, foto FROM mascotas WHERE id_usuario = $id_usuario";
+$resultado_mascotas = $conexion->query($sql_mascotas);
+$mascotas = $resultado_mascotas->fetch_all(MYSQLI_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -60,9 +79,11 @@
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li class="nav-item active"><a href="about.html" class="nav-link">Perfil</a></li>
-                    <li class="nav-item"><a href="vet.html" class="nav-link">Cerrar Sesión</a></li>
+                    <li class="nav-item"><a href="index.php" class="nav-link">Inicio</a></li>
+                    <li class="nav-item active"><a href="" class="nav-link">Perfil</a></li>
+                    <li class="nav-item"><a href="include/logout.php" class="nav-link">
+                            Cerrar Sesión (<?php echo $usuario['nombre_completo']; ?>)
+                        </a></li>
                 </ul>
             </div>
         </div>
@@ -82,7 +103,7 @@
                                     <div class="profile-avatar">
                                         <span class="fa fa-user"></span>
                                     </div>
-                                    <h3 id="userName">Juan Pérez</h3>
+                                    <h3 id="userName"><?php echo $usuario['nombre_completo']; ?></h3>
                                     <p>Dueño de mascotas</p>
                                     <button class="btn btn-edit-profile" data-toggle="modal"
                                         data-target="#editProfileModal">
@@ -100,22 +121,26 @@
                                         <div class="col-md-6">
                                             <div class="info-group">
                                                 <div class="info-label">Email</div>
-                                                <div class="info-value" id="userEmail">juan.perez@email.com</div>
+                                                <div class="info-value" id="userEmail"><?php echo $usuario['correo']; ?>
+                                                </div>
                                             </div>
                                             <div class="info-group">
                                                 <div class="info-label">Teléfono</div>
-                                                <div class="info-value" id="userPhone">+1 234 567 890</div>
+                                                <div class="info-value" id="userPhone">
+                                                    <?php echo $usuario['telefono']; ?>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="info-group">
                                                 <div class="info-label">Dirección</div>
-                                                <div class="info-value" id="userAddress">Calle Principal #123, Ciudad
+                                                <div class="info-value" id="userAddress">
+                                                    <?php echo $usuario['direccion']; ?>
                                                 </div>
                                             </div>
                                             <div class="info-group">
-                                                <div class="info-label">Miembro desde</div>
-                                                <div class="info-value" id="userSince">Enero 2024</div>
+                                                <div class="info-label">Perfil</div>
+                                                <div class="info-value" id="userSince">Miembro Activo</div>
                                             </div>
                                         </div>
                                     </div>
@@ -124,21 +149,58 @@
                                     <div class="pets-section">
                                         <h4 class="section-title">Mis Mascotas</h4>
 
-                                        <div id="petsContainer">
-                                            <!-- Las mascotas se cargarán aquí dinámicamente -->
-                                        </div>
+                                        <?php if (empty($mascotas)): ?>
+                                            <div class="no-pets">
+                                                <p>No tienes mascotas registradas aún.</p>
+                                            </div>
+                                        <?php else: ?>
+                                            <?php foreach ($mascotas as $index => $mascota): ?>
+                                                <div class="pet-card">
+                                                    <!-- Aquí va la foto de la mascota -->
+                                                    <div class="pet-photo">
+                                                        <?php if (!empty($mascota['foto'])): ?>
+                                                            <img src="uploads/mascotas/<?php echo $mascota['foto']; ?>"
+                                                                alt="<?php echo $mascota['nombre']; ?>" class="pet-image">
+                                                        <?php else: ?>
+                                                            <div class="no-photo">
+                                                                <span class="fa fa-paw"></span>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
 
-                                        <button class="btn btn-add-pet" data-toggle="modal" data-target="#petModal"
-                                            onclick="showAddPetModal()">
-                                            <span class="fa fa-plus mr-2"></span>Agregar Nueva Mascota
-                                        </button>
+                                                    <div class="pet-info">
+                                                        <h5><?php echo $mascota['nombre']; ?></h5>
+                                                        <p><strong>Especie:</strong> <?php echo $mascota['especie']; ?></p>
+                                                        <p><strong>Raza:</strong> <?php echo $mascota['raza']; ?></p>
+                                                        <p><strong>Edad:</strong> <?php echo $mascota['edad']; ?> años</p>
+                                                    </div>
+                                                    <div class="pet-actions">
+                                                        <button class="btn btn-edit"
+                                                            onclick="editPet(<?php echo $mascota['id_mascota']; ?>)">
+                                                            <span class="fa fa-edit"></span>
+                                                        </button>
+
+                                                        <button class="btn btn-delete"
+                                                            onclick="showDeleteConfirm(<?php echo $mascota['id_mascota']; ?>)">
+                                                            <span class="fa fa-trash"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </div>
+
+                                    <button class="btn btn-add-pet" data-toggle="modal" data-target="#petModal"
+                                        onclick="showAddPetModal()">
+                                        <span class="fa fa-plus mr-2"></span>Agregar Nueva Mascota
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -153,29 +215,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editProfileForm">
+                    <form id="editProfileForm" onsubmit="saveProfile(); return false;">
                         <div class="form-group">
                             <label for="editName">Nombre</label>
-                            <input type="text" class="form-control" id="editName" value="Juan Pérez">
+                            <input type="text" class="form-control" id="editName"
+                                value="<?php echo $usuario['nombre_completo']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="editEmail">Email</label>
-                            <input type="email" class="form-control" id="editEmail" value="juan.perez@email.com">
+                            <input type="email" class="form-control" id="editEmail"
+                                value="<?php echo $usuario['correo']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="editPhone">Teléfono</label>
-                            <input type="tel" class="form-control" id="editPhone" value="+1 234 567 890">
+                            <input type="tel" class="form-control" id="editPhone"
+                                value="<?php echo $usuario['telefono']; ?>">
                         </div>
                         <div class="form-group">
                             <label for="editAddress">Dirección</label>
                             <textarea class="form-control" id="editAddress"
-                                rows="3">Calle Principal #123, Ciudad</textarea>
+                                rows="3"><?php echo $usuario['direccion']; ?></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-save" onclick="saveProfile()">Guardar Cambios</button>
+                    <button type="button" class="btn btn-save" onclick="saveProfile(); return false;">Guardar
+                        Cambios</button>
                 </div>
             </div>
         </div>
@@ -192,31 +258,42 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="petForm">
-                        <input type="hidden" id="editPetIndex">
+                    <form id="petForm" enctype="multipart/form-data">
+                        <input type="hidden" id="editPetId">
+
+                        <!-- Campo para la foto -->
+                        <div class="form-group text-center">
+                            <div class="photo-preview mb-3" id="photoPreview">
+                                <img id="previewImage" src="#" alt="Vista previa"
+                                    style="max-width: 200px; max-height: 150px; border-radius: 8px; display: none;">
+                                <div id="noPhotoText" class="text-muted">No hay foto seleccionada</div>
+                            </div>
+                            <label for="petPhoto" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-camera"></i> Seleccionar Foto
+                            </label>
+                            <input type="file" class="form-control-file d-none" id="petPhoto" accept="image/*"
+                                name="foto" required>
+                            <small class="form-text text-muted">Formatos: JPG, PNG, GIF (Máx. 2MB)</small>
+                        </div>
+
                         <div class="form-group">
-                            <label for="petName">Nombre de la Mascota</label>
-                            <input type="text" class="form-control" id="petName" required>
+                            <label for="petName">Nombre de la Mascota *</label>
+                            <input type="text" class="form-control" id="petName" name="nombre" required>
                         </div>
                         <div class="form-group">
-                            <label for="petSpecies">Especie</label>
-                            <select class="form-control" id="petSpecies" required>
-                                <option value="">Seleccionar especie</option>
-                                <option value="Perro">Perro</option>
-                                <option value="Gato">Gato</option>
-                                <option value="Ave">Ave</option>
-                                <option value="Roedor">Roedor</option>
-                                <option value="Reptil">Reptil</option>
-                                <option value="Otro">Otro</option>
-                            </select>
+                            <label for="petSpecies">Especie *</label>
+                            <input type="text" class="form-control" id="petSpecies" name="especie" required
+                                placeholder="Ej: Perro, Gato, Ave, etc.">
                         </div>
                         <div class="form-group">
                             <label for="petBreed">Raza</label>
-                            <input type="text" class="form-control" id="petBreed">
+                            <input type="text" class="form-control" id="petBreed" name="raza"
+                                placeholder="Ej: Schnauzer, Siames, etc.">
                         </div>
                         <div class="form-group">
                             <label for="petAge">Edad</label>
-                            <input type="text" class="form-control" id="petAge" placeholder="Ej: 3 años">
+                            <input type="text" class="form-control" id="petAge" name="edad"
+                                placeholder="Ej: 3 años, 5 meses">
                         </div>
                     </form>
                 </div>
@@ -264,6 +341,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/perfil.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

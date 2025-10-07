@@ -76,7 +76,7 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
 
           <?php if ($loggedin): ?>
             <!-- Usuario LOGUEADO -->
-            <li class="nav-item"><a href="perfil.html" class="nav-link">Perfil</a></li>
+            <li class="nav-item"><a href="perfil.php" class="nav-link">Perfil</a></li>
             <li class="nav-item">
               <a href="include/logout.php" class="nav-link">
                 <i class="fa fa-sign-out mr-1"></i>Cerrar Sesión (<?php echo $nombre_usuario; ?>)
