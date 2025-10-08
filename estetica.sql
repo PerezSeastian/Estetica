@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2025 a las 06:03:29
+-- Tiempo de generación: 08-10-2025 a las 04:16:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -33,8 +33,18 @@ CREATE TABLE `mascotas` (
   `nombre` varchar(100) NOT NULL,
   `especie` varchar(50) NOT NULL,
   `raza` varchar(100) DEFAULT NULL,
-  `edad` int(11) DEFAULT NULL
+  `edad` int(11) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mascotas`
+--
+
+INSERT INTO `mascotas` (`id_mascota`, `id_usuario`, `nombre`, `especie`, `raza`, `edad`, `foto`) VALUES
+(14, 7, 'Junior', 'Perro', 'schnauzer', 7, '68e55e9f5af8e.jpg'),
+(15, 8, 'Junior', 'Perro', 'schnauzer', 7, '68e55b0bb2759.jpg'),
+(16, 8, 'Booz', 'Perro', 'Corriente', 3, '68e55d12be941.jpg');
 
 -- --------------------------------------------------------
 
@@ -56,7 +66,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre_completo`, `telefono`, `correo`, `contrasena`, `direccion`) VALUES
-(7, 'Sebastián Santiago Pérez', '5522310064', 'sspsantiago15@gmail.com', '$2y$10$ALp5nhwd4IGywqMW6E8YU.a0wEt1s8HbEUimRk13ZV/lG7JdbYF7e', 'Peñon bajo');
+(7, 'Sebastián Santigo Pérez', '5637130709', 'sspsantiago15@gmail.com', '$2y$10$ALp5nhwd4IGywqMW6E8YU.a0wEt1s8HbEUimRk13ZV/lG7JdbYF7e', 'Peñon bajo'),
+(8, 'Dana de Santiago Péreez', '5522310064', 'dana@gmail.com', '$2y$10$FyoC.MQVJSFzhsGxh2i7qOE/gFnDbO1eUN0Ht66TTp1tNkyNQS5gu', 'Peñon bajo');
 
 --
 -- Índices para tablas volcadas
@@ -84,13 +95,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `mascotas`
 --
 ALTER TABLE `mascotas`
-  MODIFY `id_mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_mascota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
