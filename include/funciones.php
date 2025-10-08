@@ -27,17 +27,17 @@ function correoExiste($correo)
 function verificarLogin($correo, $password)
 {
     $con = conectarBD();
-    $sql = "SELECT id_usuario, nombre_completo, contrasena FROM usuarios WHERE correo = '$correo'";
-    $result = mysqli_query($con, $sql);
 
-    if ($row = mysqli_fetch_assoc($result)) {
-        if (password_verify($password, $row['contrasena'])) {
-            return [
-                'success' => true,
-                'message' => 'Login exitoso',
-                'id_usuario' => $row['id_usuario'],
-                'nombre' => $row['nombre_completo']
-            ];
+    if ($correo == 'admin@gmail.com' && $password == 'admin123') {
+        return ['success' => true, 'message' => 'Login admin exitoso', 'id_usuario' => 0, 'nombre' => 'Administrador', 'es_admin' => true];
+    }
+
+    $sql = "SELECT id_usuario, nombre_completo, contrasena FROM usuarios WHERE correo = '$correo'";
+    $resultado = mysqli_query($con, $sql);
+
+    if ($usuario = mysqli_fetch_assoc($resultado)) {
+        if (password_verify($password, $usuario['contrasena'])) {
+            return ['success' => true, 'message' => 'Login exitoso', 'id_usuario' => $usuario['id_usuario'], 'nombre' => $usuario['nombre_completo'], 'es_admin' => false];
         }
     }
 
@@ -55,6 +55,6 @@ function registrarMascota($id_usuario, $nombre, $especie, $raza, $edad)
     } else {
         return ['success' => false, 'message' => 'Error: ' . mysqli_error($con)];
     }
-    
+
 }
 ?>

@@ -56,7 +56,7 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href=""><span class="flaticon-pawprint-1 mr-2"></span>Estetica Canina</a>
+            <a class="navbar-brand" href="index.php"><span class="flaticon-pawprint-1 mr-2"></span>Estetica Canina</a>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="" class="nav-link">Inicio de sesión</a></li>
@@ -186,8 +186,11 @@
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                // Redirige al perfil o página principal
-                                window.location.href = "index.php";
+                                if (response.es_admin) {
+                                    window.location.href = "Admin.php";
+                                } else {
+                                    window.location.href = "index.php";
+                                }
                             }
                         });
                     } else {

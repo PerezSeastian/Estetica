@@ -3,7 +3,6 @@ session_start();
 $loggedin = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
 $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
