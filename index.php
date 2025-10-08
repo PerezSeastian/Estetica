@@ -120,7 +120,7 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
             <div class="media-body">
               <h3 class="heading">Estética Canina</h3>
               <p>Cortes de pelo, baño, cepillado y estilismo para que tu mascota siempre luzca hermosa.</p>
-              <a href="Esteticas.html" class="btn-custom d-flex align-items-center justify-content-center">
+              <a href="esteticas.php" class="btn-custom d-flex align-items-center justify-content-center">
                 <span class="fa fa-chevron-right"></span><i class="sr-only">Leer más</i>
               </a>
             </div>

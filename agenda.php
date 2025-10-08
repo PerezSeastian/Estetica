@@ -1,3 +1,8 @@
+<?php
+session_start();
+$loggedin = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
+$nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,8 +75,21 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
-          <li class="nav-item"><a href="about.html" class="nav-link">Acerca de</a></li>
-          <li class="nav-item active"><a href="registro.html" class="nav-link">Registro de Usuario</a></li>
+
+          <?php if ($loggedin): ?>
+            <!-- Usuario LOGUEADO -->
+            <li class="nav-item"><a href="perfil.php" class="nav-link">Perfil</a></li>
+            <li class="nav-item active"><a href="agenda.php" class="nav-link">Agenda</a></li>
+            <li class="nav-item">
+              <a href="include/logout.php" class="nav-link">
+                <i class="fa fa-sign-out mr-1"></i>Cerrar Sesión (<?php echo $nombre_usuario; ?>)
+              </a>
+            </li>
+          <?php else: ?>
+            <!-- Usuario NO logueado -->
+            <li class="nav-item"><a href="#" class="nav-link">Acerca de</a></li>
+            <li class="nav-item"><a href="iniciosesion.html" class="nav-link">Iniciar sesión</a></li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>
@@ -99,6 +117,7 @@
                   <input type="text" id="fecha" class="form-control border-0 shadow-none" name="fecha"
                     placeholder="Selecciona una fecha" required>
                 </div>
+
                 <!-- Hora -->
                 <div class="form-group d-flex align-items-center border rounded mb-3 px-2 ">
                   <span class="fa fa-clock mr-2"></span>
@@ -113,7 +132,7 @@
                     <option value="17:30-18:30">05:30 PM - 06:30 PM</option>
                   </select>
                 </div>
-                
+
                 <!-- Sucursal -->
                 <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
                   <span class="fa fa-store mr-2"></span>
@@ -130,10 +149,6 @@
                   <span class="fa fa-dog mr-2"></span>
                   <select class="form-control border-0" name="mascota" required>
                     <option value="">Selecciona tu mascota</option>
-                    <option value="firulais">Firulais</option>
-                    <option value="max">Max</option>
-                    <option value="luna">Luna</option>
-                    <option value="otro">Otra</option>
                   </select>
                 </div>
 
@@ -151,23 +166,12 @@
                   </select>
                 </div>
 
-                <!-- Estado -->
-                <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
-                  <span class="fa fa-flag mr-2"></span>
-                  <select class="form-control border-0" name="estado" required>
-                    <option value="">Selecciona el estado</option>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="confirmada">Confirmada</option>
-                    <option value="cancelada">Cancelada</option>
-                  </select>
-                </div>
-
                 <!-- Botón -->
                 <div class="form-group">
                   <input type="submit" value="Agendar Cita" class="btn btn-primary btn-block py-2">
                 </div>
-
               </form>
+
             </div>
           </div>
         </div>
@@ -221,34 +225,95 @@
   <script>
     flatpickr("#fecha", {
       dateFormat: "d/m/Y",
-      minDate: "today",  
+      minDate: "today",
       locale: "es",      // idioma español
 
     });
   </script>
 
   <script>
-  document.querySelector("form.appointment").addEventListener("submit", function(e) {
-    const fecha = document.getElementById("fecha").value.trim();
+    document.querySelector("form.appointment").addEventListener("submit", function (e) {
+      const fecha = document.getElementById("fecha").value.trim();
 
-    if (!fecha) {
-      e.preventDefault(); 
+      if (!fecha) {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'warning',
+          title: 'Campo obligatorio',
+          text: 'Por favor selecciona una fecha para la cita.',
+          confirmButtonColor: '#28a745'
+        });
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("include/ObtenerMascotas.php")
+        .then(res => res.json())
+        .then(data => {
+          let selectMascota = document.querySelector("select[name='mascota']");
+          selectMascota.innerHTML = '<option value="">Selecciona tu mascota</option>';
+          if (data.length > 0) {
+            data.forEach(m => {
+              selectMascota.innerHTML += `<option value="${m.id_mascota}">${m.nombre}</option>`;
+            });
+          } else {
+            selectMascota.innerHTML += `<option value="">No tienes mascotas registradas</option>`;
+          }
+        });
+    });
+    // guardar cita
+    document.querySelector("form.appointment").addEventListener("submit", function (e) {
+      e.preventDefault();
+      let formData = new FormData(this);
+
       Swal.fire({
-        icon: 'warning',
-        title: 'Campo obligatorio',
-        text: 'Por favor selecciona una fecha para la cita.',
-        confirmButtonColor: '#28a745'
+        title: 'Agendando...',
+        text: 'Por favor espera 🐾',
+        icon: 'info',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => Swal.showLoading()
       });
-    }
-  });
-</script>
 
-  
+      fetch("include/RegistroCita.php", { method: "POST", body: formData })
+        .then(res => res.json())
+        .then(data => {
+          Swal.close();
+          if (data.success) {
+            Swal.fire({
+              icon: 'success',
+              title: '¡Cita agendada!',
+              text: data.message,
+              showDenyButton: true,
+              confirmButtonText: 'Agendar otra mascota',
+              denyButtonText: 'Finalizar'
+            }).then(result => {
+              if (result.isConfirmed) {
+                const form = document.querySelector("form.appointment");
+                form.querySelector("select[name='mascota']").value = "";
 
+                Swal.fire({
+                  icon: 'info',
+                  title: 'Selecciona otra mascota 🐾',
+                  text: 'Los demás datos se mantuvieron iguales',
+                  confirmButtonText: 'OK'
+                });
+              } else {
+                window.location.href = "index.php";
+              }
+            });
+          } else {
+            Swal.fire('Error', data.message, 'error');
+          }
+        })
+        .catch(() => {
+          Swal.close();
+          Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
+        });
+    });
 
-
-
-
+  </script>
 </body>
 
 </html>

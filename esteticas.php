@@ -1,3 +1,8 @@
+<?php
+session_start();
+$loggedin = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
+$nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -61,12 +66,24 @@
                 <span class="fa fa-bars"></span> Menu
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Acerca de</a></li>
-                    <li class="nav-item"><a href="iniciosesion.html" class="nav-link">Iniciar sesión</a></li>
-                </ul>
-            </div>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item "><a href="index.php" class="nav-link">Inicio</a></li>
+          <?php if ($loggedin): ?>
+            <!-- Usuario LOGUEADO -->
+            <li class="nav-item"><a href="perfil.php" class="nav-link">Perfil</a></li>
+            <li class="nav-item active"><a href="estetica.php" class="nav-link">Sucursales</a></li>
+            <li class="nav-item">
+              <a href="include/logout.php" class="nav-link">
+                <i class="fa fa-sign-out mr-1"></i>Cerrar Sesión (<?php echo $nombre_usuario; ?>)
+              </a>
+            </li>
+          <?php else: ?>
+            <!-- Usuario NO logueado -->
+            <li class="nav-item"><a href="#" class="nav-link">Acerca de</a></li>
+            <li class="nav-item"><a href="iniciosesion.html" class="nav-link">Iniciar sesión</a></li>
+          <?php endif; ?>
+        </ul>
+      </div>
         </div>
     </nav>
 
@@ -174,7 +191,7 @@
                             Mapa de ubicación (próximamente)
                         </div>
 
-                        <button class="btn btn-select">
+                        <button class="btn btn-select" onclick="window.location.href='agenda.php'">
                             <i class="fas fa-calendar-check mr-2"></i>Seleccionar esta Sucursal
                         </button>
                     </div>
