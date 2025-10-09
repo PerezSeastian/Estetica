@@ -186,3 +186,29 @@
     background: #c0392b;
     transform: translateY(-1px);
 }
+.btn-guardar {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(32, 201, 151, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-guardar:hover {
+    background: linear-gradient(135deg, #20c997, #17a2b8);
+    box-shadow: 0 6px 14px rgba(23, 162, 184, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-guardar i {
+    margin-right: 8px;
+}
+.user-actions-pro{
+  justify-content: center; 
+  align-items: center;
+}

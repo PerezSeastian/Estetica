@@ -61,7 +61,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="Admin.html.php">
-                <span class="flaticon-pawprint-1 mr-2"></span>Pet Sitting - Admin
+                <span class="flaticon-pawprint-1 mr-2"></span> Estética canina - Admin
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,8 +70,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="Admin.html" class="nav-link">👥 Usuarios</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">📅 Agenda</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">⏰ Horarios</a></li>
+                    <li class="nav-item"><a href="adminCitas.php" class="nav-link">📅 Agenda</a></li>
+                    <li class="nav-item"><a href="adminHorarios.php" class="nav-link">⏰ Horarios</a></li>
                     <li class="nav-item"><a href="include/logout.php" class="nav-link">
                             🚪 Cerrar Sesión
                         </a></li>
