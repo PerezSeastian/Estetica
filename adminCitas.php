@@ -65,7 +65,7 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="Admin.php" class="nav-link">👥 Usuarios</a></li>
                     <li class="nav-item active"><a href="adminCitas.php" class="nav-link">📅 Agenda</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">⏰ Horarios</a></li>
+                    <li class="nav-item"><a href="adminHorarios.php" class="nav-link">⏰ Horarios</a></li>
                     <li class="nav-item"><a href="include/logout.php" class="nav-link">🚪 Cerrar Sesión</a></li>
                 </ul>
             </div>
