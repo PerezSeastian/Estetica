@@ -4,7 +4,20 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     header('Location: iniciosesion.php');
     exit;
 }
+
+require_once 'include/database.php';
+$conexion = conectarBD();
+
+$sql_usuarios = "SELECT u.id_usuario, u.nombre_completo, u.correo, u.telefono, COUNT(m.id_mascota) as total_mascotas FROM usuarios u LEFT JOIN mascotas m ON u.id_usuario = m.id_usuario GROUP BY u.id_usuario";
+$resultado_usuarios = $conexion->query($sql_usuarios);
+$usuarios = $resultado_usuarios->fetch_all(MYSQLI_ASSOC);
+
+$total_usuarios = count($usuarios);
+
+$sql_mascotas = "SELECT COUNT(*) as total FROM mascotas";
+$total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -69,11 +82,17 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="Admin.html" class="nav-link">👥 Usuarios</a></li>
-                    <li class="nav-item"><a href="adminCitas.php" class="nav-link">📅 Agenda</a></li>
-                    <li class="nav-item"><a href="adminHorarios.php" class="nav-link">⏰ Horarios</a></li>
+                    <li class="nav-item active"><a href="Admin.html" class="nav-link">
+                            <span class="fa fa-users mr-1"></span> Usuarios
+                        </a></li>
+                    <li class="nav-item"><a href="adminCitas.php" class="nav-link">
+                            <span class="fa fa-calendar mr-1"></span> Agenda
+                        </a></li>
+                    <li class="nav-item"><a href="adminHorarios.php" class="nav-link">
+                            <span class="fa fa-clock-o mr-1"></span> Horarios
+                        </a></li>
                     <li class="nav-item"><a href="include/logout.php" class="nav-link">
-                            🚪 Cerrar Sesión
+                            <span class="fa fa-sign-out mr-1"></span> Cerrar Sesión
                         </a></li>
                 </ul>
             </div>
@@ -93,14 +112,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
                                 <div class="stat-card">
                                     <div class="stat-icon">👥</div>
                                     <div class="stat-info">
-                                        <div class="stat-number">24</div>
+                                        <div class="stat-number"><?php echo $total_usuarios; ?></div>
                                         <div class="stat-label">Usuarios</div>
                                     </div>
                                 </div>
                                 <div class="stat-card">
                                     <div class="stat-icon">🐕</div>
                                     <div class="stat-info">
-                                        <div class="stat-number">42</div>
+                                        <div class="stat-number"><?php echo $total_mascotas; ?></div>
                                         <div class="stat-label">Mascotas</div>
                                     </div>
                                 </div>
@@ -117,75 +136,43 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
                                 </button>
                             </div>
 
+                            <!-- En el grid de usuarios -->
                             <div class="users-grid">
-                                <!-- Usuario 1 -->
-                                <div class="user-card-pro">
-                                    <div class="user-main">
-                                        <h5>Juan Pérez</h5>
-                                        <div class="user-contact">
-                                            <span class="fa fa-envelope"></span> juan@email.com
+                                <?php foreach ($usuarios as $usuario): ?>
+                                    <div class="user-card-pro">
+                                        <div class="user-main">
+                                            <h5><?php echo $usuario['nombre_completo']; ?></h5>
+                                            <div class="user-contact">
+                                                <span class="fa fa-envelope"></span> <?php echo $usuario['correo']; ?>
+                                            </div>
+                                        </div>
+                                        <div class="user-meta">
+                                            <span class="meta-badge"><span class="fa fa-phone mr-1"></span>
+                                                <?php echo $usuario['telefono']; ?></span>
+                                            <span class="meta-badge">
+                                                <?php
+                                                if ($usuario['total_mascotas'] == 0) {
+                                                    echo '<span class="fa fa-paw mr-1"></span> Sin mascotas';
+                                                } elseif ($usuario['total_mascotas'] == 1) {
+                                                    echo '<span class="fa fa-paw mr-1"></span> 1 mascota';
+                                                } else {
+                                                    echo '<span class="fa fa-paw mr-1"></span> ' . $usuario['total_mascotas'] . ' mascotas';
+                                                }
+                                                ?>
+                                            </span>
+                                        </div>
+                                        <div class="user-actions-pro">
+                                            <button class="btn-pro btn-view-pro"
+                                                onclick="cargarUsuario(<?php echo $usuario['id_usuario']; ?>)">
+                                                <span class="fa fa-eye"></span> Ver
+                                            </button>
+                                            <button class="btn-pro btn-delete-pro"
+                                                onclick="eliminarUsuario(<?php echo $usuario['id_usuario']; ?>, '<?php echo $usuario['nombre_completo']; ?>')">
+                                                <span class="fa fa-trash"></span> Eliminar
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="user-meta">
-                                        <span class="meta-badge">📞 123-456-7890</span>
-                                        <span class="meta-badge">🐕 3 mascotas</span>
-                                    </div>
-                                    <div class="user-actions-pro">
-                                        <button class="btn-pro btn-view-pro" data-toggle="modal"
-                                            data-target="#userModal">
-                                            <span class="fa fa-eye"></span> Ver
-                                        </button>
-                                        <button class="btn-pro btn-delete-pro">
-                                            <span class="fa fa-trash"></span> Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Usuario 2 -->
-                                <div class="user-card-pro">
-                                    <div class="user-main">
-                                        <h5>María García</h5>
-                                        <div class="user-contact">
-                                            <span class="fa fa-envelope"></span> maria@email.com
-                                        </div>
-                                    </div>
-                                    <div class="user-meta">
-                                        <span class="meta-badge">📞 987-654-3210</span>
-                                        <span class="meta-badge">🐱 1 mascota</span>
-                                    </div>
-                                    <div class="user-actions-pro">
-                                        <button class="btn-pro btn-view-pro" data-toggle="modal"
-                                            data-target="#userModal">
-                                            <span class="fa fa-eye"></span> Ver
-                                        </button>
-                                        <button class="btn-pro btn-delete-pro">
-                                            <span class="fa fa-trash"></span> Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Usuario 3 -->
-                                <div class="user-card-pro">
-                                    <div class="user-main">
-                                        <h5>Carlos López</h5>
-                                        <div class="user-contact">
-                                            <span class="fa fa-envelope"></span> carlos@email.com
-                                        </div>
-                                    </div>
-                                    <div class="user-meta">
-                                        <span class="meta-badge">📞 555-123-4567</span>
-                                        <span class="meta-badge">🐕 2 mascotas</span>
-                                    </div>
-                                    <div class="user-actions-pro">
-                                        <button class="btn-pro btn-view-pro" data-toggle="modal"
-                                            data-target="#userModal">
-                                            <span class="fa fa-eye"></span> Ver
-                                        </button>
-                                        <button class="btn-pro btn-delete-pro">
-                                            <span class="fa fa-trash"></span> Eliminar
-                                        </button>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -230,27 +217,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-cancel" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-save">Editar Usuario</button>
                 </div>
             </div>
         </div>
     </div>
 
-
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/Admin.js"></script>
 
-
-    <script>
-        document.querySelector('.search-box input').addEventListener('input', function () {
-            const busqueda = this.value.toLowerCase();
-
-            document.querySelectorAll('.user-card-pro').forEach(tarjeta => {
-                const texto = tarjeta.textContent.toLowerCase();
-                tarjeta.style.display = texto.includes(busqueda) ? 'block' : 'none';
-            });
-        });
-    </script>
 </body>
 
 </html>
