@@ -552,3 +552,71 @@ body {
   background: #218838;
   color: #fff;
 }
+
+/* Estilos para las citas en perfil */
+.cita-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 4px solid #007bff;
+}
+
+.cita-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cita-mascota {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.estado-cita {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.estado-pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.estado-servicio {
+  background: #cce7ff;
+  color: #004085;
+}
+
+.estado-completada {
+  background: #d4edda;
+  color: #155724;
+}
+
+.estado-cancelada {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.cita-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cita-detalle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.no-citas {
+  text-align: center;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
