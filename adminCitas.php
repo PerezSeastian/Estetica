@@ -56,7 +56,8 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="Admin.php"><span class="flaticon-pawprint-1 mr-2"></span> Estética canina - Admin</a>
+            <a class="navbar-brand" href="Admin.php"><span class="flaticon-pawprint-1 mr-2"></span> Estética canina -
+                Admin</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fa fa-bars"></span> Menu
@@ -102,7 +103,8 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                             <div class="admin-search mb-4 d-flex align-items-center">
                                 <div class="search-box mr-3">
                                     <span class="fa fa-calendar"></span>
-                                    <input type="date" id="filtroFecha" class="form-control" value="<?= date('Y-m-d') ?>">
+                                    <input type="date" id="filtroFecha" class="form-control"
+                                        value="<?= date('Y-m-d') ?>">
                                 </div>
                                 <button class="btn-filter btn btn-primary mr-2">
                                     <span class="fa fa-search"></span> Buscar
@@ -125,54 +127,33 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                                             <th>💈 Servicio</th>
                                             <th>🕒 Horario</th>
                                             <th>📅 Fecha</th>
+                                            <th>✅ Estado</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tablaCitas">
                                         <tr>
-                                            <td>Firulais</td>
-                                            <td>Juan Pérez</td>
-                                            <td>555-123-4567</td>
-                                            <td>Sucursal 1</td>
-                                            <td>Baño y Corte</td>
-                                            <td>09:30 - 10:30</td>
-                                            <td>07/10/2025</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Luna</td>
-                                            <td>María García</td>
-                                            <td>555-987-6543</td>
-                                            <td>Sucursal 2</td>
-                                            <td>Spa</td>
-                                            <td>10:45 - 11:30</td>
-                                            <td>07/10/2025</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Max</td>
-                                            <td>Carlos López</td>
-                                            <td>555-333-2211</td>
-                                            <td>Sucursal 1</td>
-                                            <td>Consulta</td>
-                                            <td>12:45 - 13:30</td>
-                                            <td>07/10/2025</td>
+                                            <td colspan="7" class="text-center text-muted">Cargando citas...</td>
                                         </tr>
                                     </tbody>
+
                                 </table>
                             </div>
 
-                            
+
                             <div class="d-flex justify-content-between align-items-center mt-4">
-                                <div>
-                                    <p class="mb-0">Total de citas mostradas: <strong>3</strong></p>
-                                    <small class="text-muted">Filtrado por la fecha seleccionada.</small>
+                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                    <div>
+                                        <p class="mb-0 total-citas">Total de citas mostradas: <strong>0</strong></p>
+                                        <small class="text-muted texto-filtro">Filtrado por la fecha
+                                            seleccionada.</small>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button class="btn btn-success mr-2"><span class="fa fa-check"></span> Marcar todas</button>
-                                    <button class="btn btn-danger"><span class="fa fa-times"></span> Cancelar Todas</button>
-                                </div>
+
+                                
                             </div>
 
-                        </div> 
-                    </div> 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,18 +186,138 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        document.querySelector('.search-box input').addEventListener('input', function () {
-            const busqueda = this.value.toLowerCase();
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(busqueda) ? '' : 'none';
-            });
+<script>
+let cambiosPendientes = {}; 
+
+function cargarCitas(fechaSeleccionada, rango = "dia") {
+  fetch(`include/ObtenerCitas.php?fecha=${fechaSeleccionada}&rango=${rango}`)
+    .then(res => res.json())
+    .then(data => {
+      const tabla = document.getElementById("tablaCitas");
+      tabla.innerHTML = "";
+
+      if (!Array.isArray(data) || data.length === 0) {
+        tabla.innerHTML = `<tr><td colspan="8" class="text-center text-muted">No hay citas para esta fecha 🐶</td></tr>`;
+        actualizarContadores(0, 0);
+        return;
+      }
+
+      
+      actualizarContadores(data.length, contarMascotasUnicas(data));
+
+      data.forEach(cita => {
+        const estadoActual = cita.estado ?? 'Pendiente';
+        tabla.innerHTML += `
+          <tr>
+            <td>${cita.nombre_mascota}</td>
+            <td>${cita.nombre_cliente}</td>
+            <td>${cita.telefono}</td>
+            <td>${cita.sucursal}</td>
+            <td>${cita.servicio}</td>
+            <td>${cita.hora}</td>
+            <td>${new Date(cita.fecha).toLocaleDateString('es-MX')}</td>
+            <td>
+              <select class="form-control estado-select" data-id="${cita.id_cita}">
+                <option value="Pendiente" ${estadoActual === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                <option value="En servicio" ${estadoActual === 'En servicio' ? 'selected' : ''}>En servicio</option>
+                <option value="Completada" ${estadoActual === 'Completada' ? 'selected' : ''}>Completada</option>
+                <option value="Cancelada" ${estadoActual === 'Cancelada' ? 'selected' : ''}>Cancelada</option>
+              </select>
+            </td>
+          </tr>`;
+      });
+
+      
+      document.querySelectorAll(".estado-select").forEach(select => {
+        select.addEventListener("change", e => {
+          const id = e.target.dataset.id;
+          const nuevoEstado = e.target.value;
+          cambiosPendientes[id] = nuevoEstado;
         });
-        document.querySelector('.btn-filter').addEventListener('click', function() {
-            alert('Filtro aplicado (estático) — versión dinámica cargará las citas por fecha.');
-        });
-    </script>
+      });
+    })
+    .catch(err => {
+      console.error("Error al cargar citas:", err);
+      document.getElementById("tablaCitas").innerHTML =
+        `<tr><td colspan="8" class="text-center text-danger">Error al conectar con el servidor 😿</td></tr>`;
+    });
+}
+
+// Actualiza los contadores
+function actualizarContadores(totalCitas, totalMascotas) {
+  document.querySelector(".stat-card:nth-child(1) .stat-number").textContent = totalCitas;
+  document.querySelector(".stat-card:nth-child(2) .stat-number").textContent = totalMascotas;
+  document.querySelector(".mb-0 strong").textContent = totalCitas;
+}
+
+// Contar mascotas únicas
+function contarMascotasUnicas(data) {
+  return new Set(data.map(c => c.nombre_mascota)).size;
+}
+
+function guardarCambios() {
+  if (Object.keys(cambiosPendientes).length === 0) {
+    Swal.fire("Sin cambios", "No hay estados modificados.", "info");
+    return;
+  }
+
+  fetch("include/ActualizarEstadoCitas.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(cambiosPendientes)
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      Swal.fire({
+        icon: 'success',
+        title: '¡Cambios guardados!',
+        text: 'Los estados se actualizaron correctamente 🐾',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        const fecha = document.getElementById("filtroFecha").value;
+        cargarCitas(fecha);
+        cambiosPendientes = {};
+      });
+    } else {
+      Swal.fire("Error", data.message, "error");
+    }
+  })
+  .catch(() => Swal.fire("Error", "Error de conexión con el servidor", "error"));
+}
+
+//Ver día / semana
+function verDia() {
+  const fecha = document.getElementById("filtroFecha").value;
+  cargarCitas(fecha, "dia");
+}
+function verSemana() {
+  const fecha = document.getElementById("filtroFecha").value;
+  cargarCitas(fecha, "semana");
+}
+
+// Al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+  const fechaInput = document.getElementById("filtroFecha");
+  cargarCitas(fechaInput.value);
+
+  document.querySelector(".btn-filter").addEventListener("click", () => cargarCitas(fechaInput.value));
+  document.querySelector(".btn-outline-secondary:nth-child(1)").addEventListener("click", verDia);
+  document.querySelector(".btn-outline-secondary:nth-child(2)").addEventListener("click", verSemana);
+
+  // Crear botón Guardar cambios
+  const contenedorBotones = document.querySelector(".d-flex.justify-content-between.align-items-center.mt-4 div:last-child");
+  const botonGuardar = document.createElement("button");
+  botonGuardar.className = "btn btn-primary ml-2";
+  botonGuardar.innerHTML = '<span class="fa fa-save"></span> Guardar cambios';
+  contenedorBotones.appendChild(botonGuardar);
+  botonGuardar.addEventListener("click", guardarCambios);
+});
+</script>
+
+
 </body>
+
 </html>
