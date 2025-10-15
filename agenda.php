@@ -121,16 +121,10 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
                 <!-- Hora -->
                 <div class="form-group d-flex align-items-center border rounded mb-3 px-2 ">
                   <span class="fa fa-clock mr-2"></span>
-                  <select class="form-control border-0" name="hora" required>
+                  <select class="form-control border-0" name="hora" required id="horaSelect">
                     <option value="">Selecciona un horario</option>
-                    <option value="09:30-10:30">09:30 AM - 10:30 AM</option>
-                    <option value="10:45-11:30">10:45 AM - 11:30 AM</option>
-                    <option value="11:45-12:30">11:45 AM - 12:30 PM</option>
-                    <option value="12:45-13:30">12:45 PM - 01:30 PM</option>
-                    <option value="15:00-16:00">03:00 PM - 04:00 PM</option>
-                    <option value="16:15-17:15">04:15 PM - 05:15 PM</option>
-                    <option value="17:30-18:30">05:30 PM - 06:30 PM</option>
                   </select>
+
                 </div>
 
                 <!-- Sucursal -->
@@ -313,7 +307,43 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
         });
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+      const fechaInput = document.getElementById("fecha");
+      const horaSelect = document.getElementById("horaSelect");
+
+      function cargarHorarios() {
+        const fecha = fechaInput.value;
+        if (!fecha) return;
+
+        fetch(`include/ObtenerHorariosDisponibles.php?fecha=${fecha}`)
+          .then(res => res.json())
+          .then(data => {
+            horaSelect.innerHTML = '<option value="">Selecciona un horario</option>';
+            if (data.length === 0) {
+              horaSelect.innerHTML += `<option value="">No hay horarios disponibles</option>`;
+              return;
+            }
+
+            data.forEach(h => {
+              const label = `${h.inicio} - ${h.fin}`;
+              const option = document.createElement("option");
+              option.value = `${h.inicio}-${h.fin}`;
+              option.textContent = h.disponible ? label : `${label} (No disponible)`;
+              if (!h.disponible) option.disabled = true;
+              horaSelect.appendChild(option);
+            });
+          })
+          .catch(err => {
+            console.error(err);
+            horaSelect.innerHTML = '<option value="">Error al cargar horarios</option>';
+          });
+      }
+
+      fechaInput.addEventListener("change", cargarHorarios);
+    });
+
   </script>
+
 </body>
 
 </html>

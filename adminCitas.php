@@ -56,18 +56,27 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="Admin.php"><span class="flaticon-pawprint-1 mr-2"></span> Estética canina -
-                Admin</a>
+            <a class="navbar-brand" href="Admin.html.php">
+                <span class="flaticon-pawprint-1 mr-2"></span> Estética canina - Admin
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fa fa-bars"></span> Menu
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="Admin.php" class="nav-link">👥 Usuarios</a></li>
-                    <li class="nav-item active"><a href="adminCitas.php" class="nav-link">📅 Agenda</a></li>
-                    <li class="nav-item"><a href="adminHorarios.php" class="nav-link">⏰ Horarios</a></li>
-                    <li class="nav-item"><a href="include/logout.php" class="nav-link">🚪 Cerrar Sesión</a></li>
+                    <li class="nav-item"><a href="Admin.php" class="nav-link">
+                            <span class="fa fa-users mr-1"></span> Usuarios
+                        </a></li>
+                    <li class="nav-item active"><a href="adminCitas.php" class="nav-link">
+                            <span class="fa fa-calendar mr-1"></span> Agenda
+                        </a></li>
+                    <li class="nav-item"><a href="adminHorarios.php" class="nav-link">
+                            <span class="fa fa-clock-o mr-1"></span> Horarios
+                        </a></li>
+                    <li class="nav-item"><a href="include/logout.php" class="nav-link">
+                            <span class="fa fa-sign-out mr-1"></span> Cerrar Sesión
+                        </a></li>
                 </ul>
             </div>
         </div>
@@ -120,14 +129,14 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>🐾 Mascota</th>
-                                            <th>👤 Cliente</th>
-                                            <th>📞 Teléfono</th>
-                                            <th>📍 Sucursal</th>
-                                            <th>💈 Servicio</th>
-                                            <th>🕒 Horario</th>
-                                            <th>📅 Fecha</th>
-                                            <th>✅ Estado</th>
+                                            <th><i class="flaticon-pawprint-1 mr-2""></i> Mascota</th>
+                                            <th><i class="fa fa-user" aria-hidden="true"></i> Cliente</th>
+                                            <th><i class="fa fa-phone" aria-hidden="true"></i> Teléfono</th>
+                                            <th><i class="fa fa-map-pin" aria-hidden="true"></i> Sucursal</th>
+                                            <th><i class="fa fa-list" aria-hidden="true"></i> Servicio</th>
+                                            <th><i class="fa fa-clock-o" aria-hidden="true"></i> Horario</th>
+                                            <th><i class="fa fa-calendar" aria-hidden="true"></i>Fecha</th>
+                                            <th><i class="fa fa-filter" aria-hidden="true"></i>Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tablaCitas">

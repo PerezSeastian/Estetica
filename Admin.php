@@ -82,7 +82,7 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="Admin.html" class="nav-link">
+                    <li class="nav-item active"><a href="Admin.php" class="nav-link">
                             <span class="fa fa-users mr-1"></span> Usuarios
                         </a></li>
                     <li class="nav-item"><a href="adminCitas.php" class="nav-link">
