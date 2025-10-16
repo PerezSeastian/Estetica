@@ -218,6 +218,29 @@ function cargarCitas(fechaSeleccionada, rango = "dia") {
 
       data.forEach(cita => {
         const estadoActual = cita.estado ?? 'Pendiente';
+        const usaTaxi = cita.taxi_perruno === 'Sí';
+
+        let opcionesEstado = '';
+
+        if (usaTaxi) {
+          opcionesEstado = `
+            <option value="Proceso de recolección" ${estadoActual === 'Proceso de recolección' ? 'selected' : ''}>Proceso de recolección</option>
+            <option value="En viaje" ${estadoActual === 'En viaje' ? 'selected' : ''}>En viaje</option>
+            <option value="Ingreso a estética" ${estadoActual === 'Ingreso a estética' ? 'selected' : ''}>Ingreso a estética</option>
+            <option value="En servicio o proceso" ${estadoActual === 'En servicio o proceso' ? 'selected' : ''}>En servicio</option>
+            <option value="Terminado servicio" ${estadoActual === 'Terminado servicio' ? 'selected' : ''}>Terminado servicio</option>
+            <option value="En traslado" ${estadoActual === 'En traslado' ? 'selected' : ''}>En traslado</option>
+            <option value="Entregado al cliente" ${estadoActual === 'Entregado al cliente' ? 'selected' : ''}>Entregado al cliente</option>
+          `;
+        } else {
+          opcionesEstado = `
+            <option value="Pendiente" ${estadoActual === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+            <option value="Ingreso a estética" ${estadoActual === 'Ingreso a estética' ? 'selected' : ''}>Ingreso a estética</option>
+            <option value="En servicio" ${estadoActual === 'En servicio' ? 'selected' : ''}>En servicio</option>
+            <option value="Terminado" ${estadoActual === 'Terminado' ? 'selected' : ''}>Terminado</option>
+          `;
+        }
+
         tabla.innerHTML += `
           <tr>
             <td>${cita.nombre_mascota}</td>
@@ -229,16 +252,12 @@ function cargarCitas(fechaSeleccionada, rango = "dia") {
             <td>${new Date(cita.fecha).toLocaleDateString('es-MX')}</td>
             <td>
               <select class="form-control estado-select" data-id="${cita.id_cita}">
-                <option value="Pendiente" ${estadoActual === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
-                <option value="En servicio" ${estadoActual === 'En servicio' ? 'selected' : ''}>En servicio</option>
-                <option value="Completada" ${estadoActual === 'Completada' ? 'selected' : ''}>Completada</option>
-                <option value="Cancelada" ${estadoActual === 'Cancelada' ? 'selected' : ''}>Cancelada</option>
+                ${opcionesEstado}
               </select>
             </td>
           </tr>`;
       });
 
-      
       document.querySelectorAll(".estado-select").forEach(select => {
         select.addEventListener("change", e => {
           const id = e.target.dataset.id;

@@ -20,7 +20,8 @@ $sql = "SELECT
     a.servicio,
     a.hora,
     a.fecha,
-    a.estado
+    a.estado,
+    a.taxi_perruno
 FROM agenda a
 JOIN mascotas m ON a.id_mascota = m.id_mascota
 JOIN usuarios u ON a.id_usuario = u.id_usuario

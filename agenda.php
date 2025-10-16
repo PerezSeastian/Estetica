@@ -159,6 +159,16 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
                     <option value="consulta">Consulta veterinaria</option>
                   </select>
                 </div>
+                <!-- Taxi Perruno -->
+                <div class="form-group d-flex align-items-center border rounded mb-3 px-2">
+                  <span class="fa fa-taxi mr-2"></span>
+                  <select class="form-control border-0" name="taxi_perruno" required>
+                    <option value="">¿Deseas taxi perruno?</option>
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
 
                 <!-- Botón -->
                 <div class="form-group">
