@@ -194,6 +194,25 @@ $mascotas = $resultado_mascotas->fetch_all(MYSQLI_ASSOC);
                                         onclick="showAddPetModal()">
                                         <span class="fa fa-plus mr-2"></span>Agregar Nueva Mascota
                                     </button>
+
+                                    <!-- Sección de Mis Citas -->
+                                    <div class="citas-section mt-5">
+                                        <h4 class="section-title">📅 Mis Citas</h4>
+
+                                        <div id="cargandoCitas" class="text-center">
+                                            <p>Cargando mis citas...</p>
+                                        </div>
+
+                                        <div id="listaCitas">
+                                            <!-- Aquí se cargarán las citas con JavaScript -->
+                                        </div>
+
+                                        <div id="sinCitas" class="no-citas" style="display: none;">
+                                            <p>No tienes citas programadas aún.</p>
+                                            <a href="servicios.html" class="btn btn-primary">Agendar mi primera cita</a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

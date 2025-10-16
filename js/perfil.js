@@ -243,4 +243,66 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    cargarMisCitas();
 });
+
+function cargarMisCitas() {
+    fetch('include/obtenercitasusuario.php')
+        .then(response => response.json())
+        .then(citas => {
+            document.getElementById('cargandoCitas').style.display = 'none';
+
+            const listaCitas = document.getElementById('listaCitas');
+            const sinCitas = document.getElementById('sinCitas');
+
+            if (citas.length === 0) {
+                sinCitas.style.display = 'block';
+                listaCitas.innerHTML = '';
+            } else {
+                sinCitas.style.display = 'none';
+                listaCitas.innerHTML = '';
+
+                citas.forEach(cita => {
+                    const fecha = new Date(cita.fecha).toLocaleDateString('es-MX');
+                    const estadoClass = `estado-${cita.estado.toLowerCase().replace(' ', '-')}`;
+
+                    listaCitas.innerHTML += `
+    <div class="cita-card">
+        <div class="cita-header">
+            <div class="cita-mascota">🐾 ${cita.nombre_mascota}</div>
+            <span class="estado-cita ${estadoClass}">${cita.estado}</span>
+        </div>
+        <div class="cita-info">
+            <div class="cita-detalle">
+                <span class="fa fa-calendar"></span>
+                <strong>Fecha:</strong> ${fecha}
+            </div>
+            <div class="cita-detalle">
+                <span class="fa fa-clock-o"></span>
+                <strong>Hora:</strong> ${cita.hora}
+            </div>
+            <div class="cita-detalle">
+                <span class="fa fa-scissors"></span>
+                <strong>Servicio:</strong> ${cita.servicio}
+            </div>
+            <div class="cita-detalle">
+                <span class="fa fa-map-marker"></span>
+                <strong>Sucursal:</strong> ${cita.sucursal}
+            </div>
+            <div class="cita-detalle">
+                <span class="fa fa-info-circle"></span>
+                <strong>ID Cita:</strong> #${cita.id_cita}  <!-- Aquí usa id_cita -->
+            </div>
+        </div>
+    </div>
+`;
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('cargandoCitas').innerHTML =
+                '<p>Error al cargar las citas. Intenta más tarde.</p>';
+        });
+}

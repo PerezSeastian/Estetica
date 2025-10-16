@@ -552,3 +552,225 @@ body {
   background: #218838;
   color: #fff;
 }
+
+/* Estilos para las citas en perfil */
+.cita-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 4px solid #007bff;
+}
+
+.cita-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cita-mascota {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.estado-cita {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.estado-pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.estado-servicio {
+  background: #cce7ff;
+  color: #004085;
+}
+
+.estado-completada {
+  background: #d4edda;
+  color: #155724;
+}
+
+.estado-cancelada {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.cita-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cita-detalle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.no-citas {
+  text-align: center;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+/* Notificación de bienvenida SIMPLE */
+.welcome-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 380px;
+  max-width: 90%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  animation: slideInRight 0.5s ease-out;
+  border-left: 5px solid #FFD700;
+}
+
+.notification-content {
+  color: white;
+  padding: 20px;
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.notification-header .fa-paw {
+  font-size: 22px;
+  margin-right: 10px;
+  color: #FFD700;
+}
+
+.notification-header h4 {
+  margin: 0;
+  flex: 1;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.close-notification {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.close-notification:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.notification-body p {
+  margin-bottom: 8px;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.notification-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-view-profile {
+  background: #FFD700;
+  color: #333;
+  padding: 8px 15px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-view-profile:hover {
+  background: #FFC400;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+  color: #333;
+  text-decoration: none;
+}
+
+.btn-later {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-later:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Animaciones */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.welcome-notification.hiding {
+  animation: slideOutRight 0.5s ease-in forwards;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .welcome-notification {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+
+  .notification-actions {
+    flex-direction: column;
+  }
+
+  .btn-view-profile,
+  .btn-later {
+    text-align: center;
+    justify-content: center;
+  }
+}
