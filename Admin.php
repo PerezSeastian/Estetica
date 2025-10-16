@@ -8,13 +8,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
 require_once 'include/database.php';
 $conexion = conectarBD();
 
-$sql_usuarios = "SELECT u.id_usuario, u.nombre_completo, u.correo, u.telefono, COUNT(m.id_mascota) as total_mascotas FROM usuarios u LEFT JOIN mascotas m ON u.id_usuario = m.id_usuario GROUP BY u.id_usuario";
+$sql_usuarios = "SELECT u.id_usuario, u.nombre_completo, u.correo, u.telefono, u.estado, COUNT(m.id_mascota) as total_mascotas FROM usuarios u LEFT JOIN mascotas m ON u.id_usuario = m.id_usuario GROUP BY u.id_usuario";
 $resultado_usuarios = $conexion->query($sql_usuarios);
 $usuarios = $resultado_usuarios->fetch_all(MYSQLI_ASSOC);
 
 $total_usuarios = count($usuarios);
 
-$sql_mascotas = "SELECT COUNT(*) as total FROM mascotas";
+$sql_mascotas = "SELECT COUNT(*) as total FROM mascotas WHERE estado = 'activo'";
 $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
 ?>
 
@@ -137,13 +137,20 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
                             </div>
 
                             <!-- En el grid de usuarios -->
+                            <!-- En el grid de usuarios -->
                             <div class="users-grid">
                                 <?php foreach ($usuarios as $usuario): ?>
-                                    <div class="user-card-pro">
+                                    <!-- AGREGAR LA CLASE user-inactive AQUÍ -->
+                                    <div
+                                        class="user-card-pro <?php echo $usuario['estado'] === 'inactivo' ? 'user-inactive' : ''; ?>">
                                         <div class="user-main">
                                             <h5><?php echo $usuario['nombre_completo']; ?></h5>
                                             <div class="user-contact">
                                                 <span class="fa fa-envelope"></span> <?php echo $usuario['correo']; ?>
+                                            </div>
+                                            <div
+                                                class="user-status <?php echo $usuario['estado'] === 'inactivo' ? 'status-inactive' : 'status-active'; ?>">
+                                                <?php echo $usuario['estado'] === 'inactivo' ? '⏸️ Inactivo' : '✅ Activo'; ?>
                                             </div>
                                         </div>
                                         <div class="user-meta">
@@ -165,10 +172,6 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
                                             <button class="btn-pro btn-view-pro"
                                                 onclick="cargarUsuario(<?php echo $usuario['id_usuario']; ?>)">
                                                 <span class="fa fa-eye"></span> Ver
-                                            </button>
-                                            <button class="btn-pro btn-delete-pro"
-                                                onclick="eliminarUsuario(<?php echo $usuario['id_usuario']; ?>, '<?php echo $usuario['nombre_completo']; ?>')">
-                                                <span class="fa fa-trash"></span> Eliminar
                                             </button>
                                         </div>
                                     </div>
@@ -193,26 +196,22 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
                 </div>
                 <div class="modal-body">
                     <h6>Datos Personales</h6>
-                    <p><strong>Nombre:</strong> Juan Pérez</p>
-                    <p><strong>Email:</strong> juan@email.com</p>
-                    <p><strong>Teléfono:</strong> 123-456-7890</p>
-                    <p><strong>Dirección:</strong> Calle 123, Ciudad</p>
+                    <p><strong>Nombre:</strong> <span id="modalNombre">Juan Pérez</span></p>
+                    <p><strong>Email:</strong> <span id="modalEmail">juan@email.com</span></p>
+                    <p><strong>Teléfono:</strong> <span id="modalTelefono">123-456-7890</span></p>
+                    <p><strong>Dirección:</strong> <span id="modalDireccion">Calle 123, Ciudad</span></p>
+
+                    <p><strong>Estado:</strong>
+                        <span id="modalEstado" class="user-status status-active">✅ Activo</span>
+                        <button class="btn btn-sm btn-outline-primary ml-2" onclick="cambiarEstadoRapido()">
+                            Cambiar Estado
+                        </button>
+                    </p>
 
                     <hr>
 
                     <h6>Mascotas</h6>
-                    <div class="pet-card">
-                        <div class="pet-photo">
-                            <div class="no-photo">
-                                <span class="fa fa-paw"></span>
-                            </div>
-                        </div>
-                        <div class="pet-info">
-                            <h6>Fido</h6>
-                            <p><strong>Especie:</strong> Perro</p>
-                            <p><strong>Raza:</strong> Labrador</p>
-                            <p><strong>Edad:</strong> 3 años</p>
-                        </div>
+                    <div id="modalMascotas">
                     </div>
                 </div>
                 <div class="modal-footer">

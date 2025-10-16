@@ -36,6 +36,33 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
 
 <body>
 
+  <?php if ($loggedin): ?>
+    <!-- Notificación de bienvenida simple -->
+    <div id="welcomeNotification" class="welcome-notification">
+      <div class="notification-content">
+        <div class="notification-header">
+          <span class="fa fa-paw"></span>
+          <h4>¡Bienvenido, <?php echo $nombre_usuario; ?>! 🐾</h4>
+          <button class="close-notification" onclick="closeWelcomeNotification()">
+            <span class="fa fa-times"></span>
+          </button>
+        </div>
+        <div class="notification-body">
+          <p>Nos alegra tenerte aquí. Explora nuestros servicios y descubre todo lo que tenemos para tu mascota.</p>
+          <p>¡Tu compañero peludo se merece lo mejor!</p>
+          <div class="notification-actions">
+            <a href="perfil.php" class="btn-view-profile">
+              <span class="fa fa-user"></span> Ver mi perfil
+            </a>
+            <button class="btn-later" onclick="closeWelcomeNotification()">
+              Continuar explorando
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif; ?>
+
   <div class="wrap">
     <div class="container">
       <div class="row">
@@ -243,5 +270,38 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
 
 
 </body>
+
+<script>
+  function closeWelcomeNotification() {
+    const notification = document.getElementById('welcomeNotification');
+    if (notification) {
+      notification.classList.add('hiding');
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 500);
+    }
+  }
+
+  // Cerrar con ESC
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closeWelcomeNotification();
+    }
+  });
+
+  // Auto-cerrar después de 10 segundos
+  setTimeout(() => {
+    closeWelcomeNotification();
+  }, 10000);
+
+  // Opcional: Cerrar al hacer clic fuera
+  document.addEventListener('click', function (event) {
+    const notification = document.getElementById('welcomeNotification');
+    if (notification && !notification.contains(event.target) &&
+      !event.target.closest('.btn-view-profile')) {
+      closeWelcomeNotification();
+    }
+  });
+</script>
 
 </html>

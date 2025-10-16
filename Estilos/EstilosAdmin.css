@@ -1,16 +1,30 @@
-/* ===== ADMIN BONITO Y COMPACTO ===== */
+/* ===== ADMIN BONITO, COMPACTO Y RESPONSIVO ===== */
 .admin-profesional {
     background: url('../images/about-3.jpg') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
 }
 
-/* Estadísticas */
+/* Estadísticas - RESPONSIVO */
 .admin-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 10px;
     margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-stats {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
 }
 
 .stat-card {
@@ -37,13 +51,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background: linear-gradient(135deg, #28a745, #007bff);
+    flex-shrink: 0;
 }
 
 .stat-number {
     font-size: 20px;
     font-weight: 800;
     color: #2c3e50;
+    line-height: 1;
 }
 
 .stat-label {
@@ -52,16 +68,32 @@
     font-weight: 600;
 }
 
-/* Buscador */
+/* Buscador - RESPONSIVO */
 .admin-search {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+    .admin-search {
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .btn-filter {
+        align-self: flex-start;
+    }
 }
 
 .search-box {
     flex: 1;
     position: relative;
+    min-width: 200px;
 }
 
 .search-box .fa {
@@ -70,6 +102,7 @@
     top: 50%;
     transform: translateY(-50%);
     color: #7f8c8d;
+    z-index: 2;
 }
 
 .search-box input {
@@ -79,15 +112,16 @@
     border-radius: 8px;
     font-size: 13px;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .search-box input:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
 }
 
 .btn-filter {
-    background: #2c3e50;
+    background: #007bff;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -95,52 +129,109 @@
     font-weight: 600;
     font-size: 12px;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .btn-filter:hover {
-    background: #34495e;
+    background: #0056b3;
     transform: translateY(-1px);
 }
 
-/* Tarjetas */
+/* Tarjetas de usuarios - RESPONSIVO */
 .users-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 12px;
 }
 
+@media (max-width: 640px) {
+    .users-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* TARJETAS DE USUARIO - ESTILOS CORREGIDOS */
 .user-card-pro {
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.98);
     border-radius: 10px;
     padding: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    border-left: 3px solid #3498db;
+    border-left: 3px solid #28a745;
     transition: all 0.3s ease;
 }
 
 .user-card-pro:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-left: 3px solid #007bff;
 }
 
+/* TARJETA INACTIVA - ESTILOS MEJORADOS */
+.user-card-pro.user-inactive {
+    background: #f8f9fa;
+    border-left: 3px solid #6c757d;
+    opacity: 0.8;
+    filter: grayscale(0.3);
+}
+
+.user-card-pro.user-inactive:hover {
+    border-left: 3px solid #495057;
+    opacity: 0.9;
+    filter: grayscale(0.1);
+    transform: translateY(-2px);
+}
+
+/* Textos para usuarios INACTIVOS */
+.user-card-pro.user-inactive .user-main h5 {
+    color: #6c757d;
+}
+
+.user-card-pro.user-inactive .user-contact {
+    color: #868e96;
+}
+
+.user-card-pro.user-inactive .meta-badge {
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+.user-card-pro.user-inactive .user-status {
+    background: #6c757d;
+    color: white;
+    border: 1px solid #5a6268;
+}
+
+.user-card-pro.user-inactive .btn-view-pro {
+    background: #6c757d;
+}
+
+.user-card-pro.user-inactive .btn-view-pro:hover {
+    background: #5a6268;
+}
+
+/* Textos para usuarios ACTIVOS (normales) */
 .user-main h5 {
     color: #2c3e50;
     font-weight: 700;
     font-size: 15px;
     margin-bottom: 4px;
+    word-break: break-word;
 }
 
 .user-contact {
     color: #7f8c8d;
     font-size: 12px;
     margin-bottom: 8px;
+    word-break: break-all;
 }
 
 .user-meta {
     display: flex;
     gap: 8px;
     margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 .meta-badge {
@@ -150,11 +241,18 @@
     border-radius: 10px;
     font-size: 11px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .user-actions-pro {
     display: flex;
     gap: 8px;
+}
+
+@media (max-width: 480px) {
+    .user-actions-pro {
+        flex-direction: column;
+    }
 }
 
 .btn-pro {
@@ -165,27 +263,21 @@
     border: none;
     transition: all 0.3s ease;
     flex: 1;
+    text-align: center;
+    white-space: nowrap;
 }
 
+/* BOTÓN VER - SOLO UNA DEFINICIÓN */
 .btn-view-pro {
-    background: #3498db;
+    background: #28a745;
     color: white;
 }
 
 .btn-view-pro:hover {
-    background: #2980b9;
+    background: #218838;
     transform: translateY(-1px);
 }
 
-.btn-delete-pro {
-    background: #e74c3c;
-    color: white;
-}
-
-.btn-delete-pro:hover {
-    background: #c0392b;
-    transform: translateY(-1px);
-}
 .btn-guardar {
     background: linear-gradient(135deg, #28a745, #20c997);
     color: #fff;
@@ -208,7 +300,321 @@
 .btn-guardar i {
     margin-right: 8px;
 }
-.user-actions-pro{
-  justify-content: center; 
-  align-items: center;
+
+/* Estados de usuario */
+.user-status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.status-active {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-inactive {
+    background: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #d6d8db;
+}
+
+/* Estilos para mascotas en modal - RESPONSIVO */
+.pet-card-modal {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+    .pet-card-modal {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pet-photo-modal {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+.pet-photo-modal {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 15px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pet-image-modal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-photo-modal {
+    color: #6c757d;
+    font-size: 1.5em;
+}
+
+.pet-info-modal {
+    flex: 1;
+    min-width: 0;
+}
+
+.pet-info-modal h6 {
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.pet-status {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.pet-status-activo {
+    background: #d4edda;
+    color: #155724;
+}
+
+.pet-status-fallecido {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.pet-status-se_mudo {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.pet-status-cambio_casa {
+    background: #cce7ff;
+    color: #004085;
+}
+
+.pet-status-dejo_venir {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+/* Controles de estado de mascotas - RESPONSIVO */
+.pet-status-control {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e9ecef;
+}
+
+.estado-mascota-select {
+    font-size: 0.8em;
+    margin-top: 4px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.estado-mascota-select option {
+    padding: 5px;
+}
+
+/* Estados para los dropdowns */
+.estado-mascota-select option[value="activo"] {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.estado-mascota-select option[value="fallecido"] {
+    color: #dc3545;
+}
+
+.estado-mascota-select option[value="cambio_peluqueria"] {
+    color: #ffc107;
+}
+
+.estado-mascota-select option[value="cambio_casa"] {
+    color: #17a2b8;
+}
+
+.estado-mascota-select option[value="cambio_ciudad"] {
+    color: #6f42c1;
+}
+
+.estado-mascota-select option[value="abandono_estetica"] {
+    color: #fd7e14;
+}
+
+.estado-mascota-select option[value="abandonado"] {
+    color: #e83e8c;
+}
+
+/* Mejoras generales para móviles */
+@media (max-width: 768px) {
+    .profile-section .container {
+        padding: 0 10px;
+    }
+
+    .profile-card {
+        margin: 10px 0;
+    }
+
+    .section-title {
+        font-size: 1.3em;
+    }
+}
+
+/* Asegurar que las imágenes sean responsivas */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===== CORRECCIONES PARA TARJETAS INACTIVAS ===== */
+
+/* TARJETA INACTIVA - ESTILOS MEJORADOS */
+.user-card-pro.user-inactive {
+    background: #f8f9fa !important;
+    border-left: 3px solid #6c757d !important;
+    opacity: 0.8;
+    filter: grayscale(0.3);
+}
+
+.user-card-pro.user-inactive:hover {
+    border-left: 3px solid #495057 !important;
+    opacity: 0.9;
+    filter: grayscale(0.1);
+    transform: translateY(-2px);
+}
+
+/* Textos para usuarios INACTIVOS */
+.user-card-pro.user-inactive .user-main h5 {
+    color: #6c757d !important;
+}
+
+.user-card-pro.user-inactive .user-contact {
+    color: #868e96 !important;
+}
+
+.user-card-pro.user-inactive .meta-badge {
+    background: #e9ecef !important;
+    color: #6c757d !important;
+}
+
+.user-card-pro.user-inactive .user-status {
+    background: #6c757d !important;
+    color: white !important;
+    border: 1px solid #5a6268 !important;
+}
+
+.user-card-pro.user-inactive .btn-view-pro {
+    background: #6c757d !important;
+}
+
+.user-card-pro.user-inactive .btn-view-pro:hover {
+    background: #5a6268 !important;
+}
+
+/* DEBUG TEMPORAL - Para verificar que las clases se aplican */
+.user-card-pro.user-inactive {
+    border: 2px dashed red !important;
+}
+
+/* ===== SOLO RESPONSIVO ===== */
+
+/* Móviles pequeños (menos de 480px) */
+@media (max-width: 480px) {
+    .admin-stats {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .admin-search {
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .btn-filter {
+        align-self: flex-start;
+    }
+
+    .users-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .user-actions-pro {
+        flex-direction: column;
+    }
+
+    .pet-card-modal {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pet-photo-modal {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile-section .container {
+        padding: 0 10px;
+    }
+
+    .profile-card {
+        margin: 10px 0;
+    }
+
+    .section-title {
+        font-size: 1.3em;
+    }
+}
+
+/* Tablets (menos de 768px) */
+@media (max-width: 768px) {
+    .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+
+/* Pantallas medianas (menos de 640px) */
+@media (max-width: 640px) {
+    .users-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 576px) */
+@media (max-width: 576px) {
+    .admin-search {
+        flex-direction: column;
+    }
+}
+
+/* Asegurar que las imágenes sean responsivas */
+img {
+    max-width: 100%;
+    height: auto;
 }
