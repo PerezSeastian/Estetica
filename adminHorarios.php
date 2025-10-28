@@ -64,8 +64,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
                     <li class="nav-item"><a href="adminCitas.php" class="nav-link">
                             <span class="fa fa-calendar mr-1"></span> Agenda
                         </a></li>
-                    <li class="nav-item active"><a href="adminHorarios.php" class="nav-link">
+                    <li class="nav-item"><a href="adminHorarios.php" class="nav-link">
                             <span class="fa fa-clock-o mr-1"></span> Horarios
+                        </a></li>
+                    <li class="nav-item active"><a href="adminReportes.php" class="nav-link">
+                            <span class="fa fa-bar-chart mr-1"></span> Reportes
                         </a></li>
                     <li class="nav-item"><a href="include/logout.php" class="nav-link">
                             <span class="fa fa-sign-out mr-1"></span> Cerrar Sesión

@@ -1,6 +1,7 @@
 <?php
 
-function conectarBD() {
+function conectarBD()
+{
     $usuario = "root";
     $password = "";
     $database = "estetica";

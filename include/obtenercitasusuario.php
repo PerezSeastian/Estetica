@@ -12,7 +12,6 @@ require_once 'database.php';
 $id_usuario = $_SESSION['id_usuario'];
 $conexion = conectarBD();
 
-// Consulta CORREGIDA - usando los nombres correctos de tu tabla
 $sql = "SELECT 
             a.id_cita, 
             m.nombre as nombre_mascota, 
@@ -24,6 +23,7 @@ $sql = "SELECT
         FROM agenda a 
         JOIN mascotas m ON a.id_mascota = m.id_mascota 
         WHERE a.id_usuario = $id_usuario 
+        AND a.estado != 'cancelada' 
         ORDER BY a.fecha DESC, a.hora DESC";
 
 $resultado = $conexion->query($sql);

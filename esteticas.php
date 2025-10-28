@@ -66,24 +66,24 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
                 <span class="fa fa-bars"></span> Menu
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item "><a href="index.php" class="nav-link">Inicio</a></li>
-          <?php if ($loggedin): ?>
-            <!-- Usuario LOGUEADO -->
-            <li class="nav-item"><a href="perfil.php" class="nav-link">Perfil</a></li>
-            <li class="nav-item active"><a href="estetica.php" class="nav-link">Sucursales</a></li>
-            <li class="nav-item">
-              <a href="include/logout.php" class="nav-link">
-                <i class="fa fa-sign-out mr-1"></i>Cerrar Sesión (<?php echo $nombre_usuario; ?>)
-              </a>
-            </li>
-          <?php else: ?>
-            <!-- Usuario NO logueado -->
-            <li class="nav-item"><a href="#" class="nav-link">Acerca de</a></li>
-            <li class="nav-item"><a href="iniciosesion.html" class="nav-link">Iniciar sesión</a></li>
-          <?php endif; ?>
-        </ul>
-      </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item "><a href="index.php" class="nav-link">Inicio</a></li>
+                    <?php if ($loggedin): ?>
+                        <!-- Usuario LOGUEADO -->
+                        <li class="nav-item"><a href="perfil.php" class="nav-link">Perfil</a></li>
+                        <li class="nav-item active"><a href="estetica.php" class="nav-link">Sucursales</a></li>
+                        <li class="nav-item">
+                            <a href="include/logout.php" class="nav-link">
+                                <i class="fa fa-sign-out mr-1"></i>Cerrar Sesión (<?php echo $nombre_usuario; ?>)
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <!-- Usuario NO logueado -->
+                        <li class="nav-item"><a href="#" class="nav-link">Acerca de</a></li>
+                        <li class="nav-item"><a href="iniciosesion.html" class="nav-link">Iniciar sesión</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -191,7 +191,7 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
                             Mapa de ubicación (próximamente)
                         </div>
 
-                        <button class="btn btn-select" onclick="window.location.href='agenda.php'">
+                        <button class="btn btn-select">
                             <i class="fas fa-calendar-check mr-2"></i>Seleccionar esta Sucursal
                         </button>
                     </div>
@@ -403,6 +403,98 @@ $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/scrollax.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        const usuarioLogueado = <?php echo $loggedin ? 'true' : 'false'; ?>;
+    </script>
+
+    <!-- Script de validación -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Botones de sucursales fijas
+            const botonesSucursal = document.querySelectorAll('#catalogFijas .btn-select');
+
+            botonesSucursal.forEach(boton => {
+                boton.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Prevenir doble clic
+                    if (boton.disabled) return;
+                    boton.disabled = true;
+
+                    if (usuarioLogueado) {
+                        window.location.href = 'agenda.php';
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Inicio de sesión requerido',
+                            html: `
+                    <p>Para agendar una cita necesitas iniciar sesión primero.</p>
+                    <p><small>Será rápido y fácil 🐾</small></p>
+                `,
+                            showCancelButton: true,
+                            confirmButtonText: 'Iniciar Sesión',
+                            cancelButtonText: 'Más tarde',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#6c757d'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'iniciosesion.html';
+                            } else {
+                                // Re-habilitar el botón si canceló
+                                boton.disabled = false;
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Botones de servicio móvil
+            const botonesMovil = document.querySelectorAll('#catalogMoviles .btn-select');
+            botonesMovil.forEach(boton => {
+                boton.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Prevenir doble clic
+                    if (boton.disabled) return;
+                    boton.disabled = true;
+
+                    if (usuarioLogueado) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Servicio Móvil',
+                            text: 'Próximamente disponible - Estamos trabajando en esta funcionalidad',
+                            confirmButtonText: 'Entendido'
+                        }).then(() => {
+                            boton.disabled = false; // Re-habilitar después del alert
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Inicio de sesión requerido',
+                            html: `
+                    <p>Para solicitar servicio móvil necesitas iniciar sesión primero.</p>
+                    <p><small>Será rápido y fácil 🐾</small></p>
+                `,
+                            showCancelButton: true,
+                            confirmButtonText: 'Iniciar Sesión',
+                            cancelButtonText: 'Más tarde',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#6c757d'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'iniciosesion.html';
+                            } else {
+                                // Re-habilitar el botón si canceló
+                                boton.disabled = false;
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

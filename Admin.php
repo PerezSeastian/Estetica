@@ -16,6 +16,12 @@ $total_usuarios = count($usuarios);
 
 $sql_mascotas = "SELECT COUNT(*) as total FROM mascotas WHERE estado = 'activo'";
 $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
+
+$usuarios_por_pagina = 6;
+$pagina = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
+$inicio = ($pagina - 1) * $usuarios_por_pagina;
+$usuarios_pagina = array_slice($usuarios, $inicio, $usuarios_por_pagina);
+$total_paginas = ceil(count($usuarios) / $usuarios_por_pagina);
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +80,7 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="Admin.html.php">
-                <span class="flaticon-pawprint-1 mr-2"></span> Estética canina - Admin
+                <span class="flaticon-pawprint-1 mr-2"></span> Panel del Admin
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,6 +96,10 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
                         </a></li>
                     <li class="nav-item"><a href="adminHorarios.php" class="nav-link">
                             <span class="fa fa-clock-o mr-1"></span> Horarios
+                        </a></li>
+
+                    <li class="nav-item"><a href="adminReportes.php" class="nav-link">
+                            <span class="fa fa-bar-chart mr-1"></span> Reportes
                         </a></li>
                     <li class="nav-item"><a href="include/logout.php" class="nav-link">
                             <span class="fa fa-sign-out mr-1"></span> Cerrar Sesión
@@ -136,7 +146,12 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
                                 </button>
                             </div>
 
-                            <!-- En el grid de usuarios -->
+                            <div class="paginacion-info">
+                                Página <?php echo $pagina; ?> de <?php echo $total_paginas; ?>
+                                (<?php echo count($usuarios); ?> usuarios totales)
+                            </div>
+
+
                             <!-- En el grid de usuarios -->
                             <div class="users-grid">
                                 <?php foreach ($usuarios as $usuario): ?>
@@ -177,6 +192,21 @@ $total_mascotas = $conexion->query($sql_mascotas)->fetch_assoc()['total'];
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                            <?php if ($total_paginas > 1): ?>
+                                <div class="paginacion-botones">
+                                    <?php if ($pagina > 1): ?>
+                                        <a href="?pagina=<?php echo $pagina - 1; ?>" class="btn-pagina">
+                                            <span class="fa fa-chevron-left"></span> Anterior
+                                        </a>
+                                    <?php endif; ?>
+
+                                    <?php if ($pagina < $total_paginas): ?>
+                                        <a href="?pagina=<?php echo $pagina + 1; ?>" class="btn-pagina">
+                                            Siguiente <span class="fa fa-chevron-right"></span>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

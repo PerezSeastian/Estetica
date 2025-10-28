@@ -1,0 +1,353 @@
+/* Estilos para la sección de reportes */
+.report-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.report-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.badge-count {
+    background: #25D366;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.btn-pdf {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.btn-pdf:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+.clientes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 25px;
+}
+
+.cliente-card {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 25px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    border-left: 4px solid #25D366;
+}
+
+.cliente-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.cliente-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.cliente-header h6 {
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.fecha-visita {
+    background: #6c757d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.8em;
+}
+
+.cliente-info {
+    margin-bottom: 20px;
+}
+
+.cliente-info p {
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.cliente-info strong {
+    color: #333;
+    min-width: 80px;
+    display: inline-block;
+}
+
+.cliente-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+.btn-action:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.no-clientes {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.no-clientes .fa {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: #28a745;
+    opacity: 0.7;
+}
+
+.no-clientes p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.no-clientes small {
+    font-size: 0.9em;
+    opacity: 0.8;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Estilos para impresión */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .cliente-actions {
+        display: none !important;
+    }
+
+    .cliente-card {
+        break-inside: avoid;
+        border: 1px solid #000;
+        margin-bottom: 15px;
+    }
+
+    .section-header {
+        border-bottom: 2px solid #000;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .clientes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cliente-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+/* PAGINACIÓN SIMPLE */
+.paginacion-info {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.paginacion-botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-pagina {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-pagina:hover {
+    background: #0056b3;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+/* Ocultar en PDF */
+@media print {
+
+    .paginacion-info,
+    .paginacion-botones {
+        display: none !important;
+    }
+}
+
+/* ==================== */
+/* ESTILOS PARA IMPRESIÓN (PDF) */
+/* ==================== */
+@media print {
+
+    /* Ocultar todo lo que no queremos en el PDF */
+    .no-print,
+    .navbar,
+    .wrap,
+    .social-media,
+    .cliente-actions,
+    .btn-pdf,
+    .header-info,
+    .admin-stats {
+        display: none !important;
+    }
+
+    /* Estilos básicos para PDF */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt !important;
+        font-family: "Arial", sans-serif !important;
+        margin: 0 !important;
+        padding: 20px !important;
+    }
+
+    .profile-section {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .profile-card {
+        box-shadow: none !important;
+        border: none !important;
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Títulos para PDF */
+    .section-title {
+        color: black !important;
+        font-size: 18pt !important;
+        text-align: center !important;
+        border-bottom: 2px solid black !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .report-title {
+        color: black !important;
+        font-size: 14pt !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Tarjetas de clientes en PDF */
+    .clientes-grid {
+        display: block !important;
+    }
+
+    .cliente-card {
+        border: 1px solid black !important;
+        margin-bottom: 15px !important;
+        page-break-inside: avoid !important;
+        background: white !important;
+    }
+
+    .cliente-header {
+        border-bottom: 1px solid #666 !important;
+    }
+
+    .cliente-header h6 {
+        color: black !important;
+        font-size: 12pt !important;
+    }
+
+    .fecha-visita {
+        background: #666 !important;
+        color: white !important;
+    }
+
+    .cliente-info p {
+        color: black !important;
+        margin: 4px 0 !important;
+    }
+
+    /* Mensaje cuando no hay clientes */
+    .no-clientes {
+        color: black !important;
+        text-align: center !important;
+    }
+
+    /* Iconos en PDF */
+    .fa {
+        color: black !important;
+    }
+}
