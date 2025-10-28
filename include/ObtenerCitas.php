@@ -2,7 +2,7 @@
 require_once 'database.php';
 $con = conectarBD();
 
-
+// Fecha filtrada (por defecto hoy)
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
 
 // DEBUG
