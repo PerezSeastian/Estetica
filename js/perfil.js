@@ -264,39 +264,52 @@ function cargarMisCitas() {
                 listaCitas.innerHTML = '';
 
                 citas.forEach(cita => {
-                    const fecha = new Date(cita.fecha).toLocaleDateString('es-MX');
+                    // ✅ CORRECCIÓN: Formateo manual de fecha
+                    const partes = cita.fecha.split('-');
+                    const fecha = `${partes[2]}/${partes[1]}/${partes[0]}`;
+                    
                     const estadoClass = `estado-${cita.estado.toLowerCase().replace(' ', '-')}`;
+                    // Solo mostrar botón cancelar si está pendiente
+                    const puedeCancelar = cita.estado === 'pendiente';
 
                     listaCitas.innerHTML += `
-    <div class="cita-card">
-        <div class="cita-header">
-            <div class="cita-mascota">🐾 ${cita.nombre_mascota}</div>
-            <span class="estado-cita ${estadoClass}">${cita.estado}</span>
-        </div>
-        <div class="cita-info">
-            <div class="cita-detalle">
-                <span class="fa fa-calendar"></span>
-                <strong>Fecha:</strong> ${fecha}
-            </div>
-            <div class="cita-detalle">
-                <span class="fa fa-clock-o"></span>
-                <strong>Hora:</strong> ${cita.hora}
-            </div>
-            <div class="cita-detalle">
-                <span class="fa fa-scissors"></span>
-                <strong>Servicio:</strong> ${cita.servicio}
-            </div>
-            <div class="cita-detalle">
-                <span class="fa fa-map-marker"></span>
-                <strong>Sucursal:</strong> ${cita.sucursal}
-            </div>
-            <div class="cita-detalle">
-                <span class="fa fa-info-circle"></span>
-                <strong>ID Cita:</strong> #${cita.id_cita}  <!-- Aquí usa id_cita -->
-            </div>
-        </div>
-    </div>
-`;
+                        <div class="cita-card ${cita.estado === 'cancelada' ? 'cita-cancelada' : ''}">
+                            <div class="cita-header">
+                                <div class="cita-mascota">🐾 ${cita.nombre_mascota}</div>
+                                <span class="estado-cita ${estadoClass}">${cita.estado}</span>
+                            </div>
+                            <div class="cita-info">
+                                <div class="cita-detalle">
+                                    <span class="fa fa-calendar"></span>
+                                    <strong>Fecha:</strong> ${fecha}
+                                </div>
+                                <div class="cita-detalle">
+                                    <span class="fa fa-clock-o"></span>
+                                    <strong>Hora:</strong> ${cita.hora}
+                                </div>
+                                <div class="cita-detalle">
+                                    <span class="fa fa-scissors"></span>
+                                    <strong>Servicio:</strong> ${cita.servicio}
+                                </div>
+                                <div class="cita-detalle">
+                                    <span class="fa fa-map-marker"></span>
+                                    <strong>Sucursal:</strong> ${cita.sucursal}
+                                </div>
+                                <div class="cita-detalle">
+                                    <span class="fa fa-info-circle"></span>
+                                    <strong>ID Cita:</strong> #${cita.id_cita}
+                                </div>
+                            </div>
+                            ${puedeCancelar ? `
+                            <div class="cita-actions">
+                                <button class="btn btn-cancelar-cita" 
+                                        onclick="cancelarCita(${cita.id_cita}, '${cita.nombre_mascota}')">
+                                    <span class="fa fa-times"></span> Cancelar Cita
+                                </button>
+                            </div>
+                            ` : ''}
+                        </div>
+                    `;
                 });
             }
         })
@@ -305,4 +318,49 @@ function cargarMisCitas() {
             document.getElementById('cargandoCitas').innerHTML =
                 '<p>Error al cargar las citas. Intenta más tarde.</p>';
         });
+}
+
+function cancelarCita(id_cita, nombre_mascota) {
+    Swal.fire({
+        title: '¿Cancelar cita?',
+        html: `¿Estás seguro de que quieres cancelar la cita de <strong>${nombre_mascota}</strong>?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#08922bff',
+        confirmButtonText: 'Sí, cancelar',
+        cancelButtonText: 'Mantener cita'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Cancelando...',
+                text: 'Cancelando cita 🐾',
+                icon: 'info',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            fetch('include/cancelarCita.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_cita: id_cita })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    if (data.success) {
+                        Swal.fire('¡Cita cancelada!', data.message, 'success').then(() => {
+                            cargarMisCitas();
+                        });
+                    } else {
+                        Swal.fire('Error', data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    Swal.close();
+                    Swal.fire('Error', 'Error de conexión', 'error');
+                });
+        }
+    });
 }

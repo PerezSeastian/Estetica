@@ -726,6 +726,41 @@ body {
   transform: translateY(-2px);
 }
 
+/* Botón cancelar cita */
+.cita-actions {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e9ecef;
+  text-align: center;
+}
+
+.btn-cancelar-cita {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-cita:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+/* Estados de citas */
+.estado-cancelada {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.cita-cancelada {
+  opacity: 0.7;
+  background: #f8f9fa;
+}
+
 /* Animaciones */
 @keyframes slideInRight {
   from {
@@ -755,22 +790,152 @@ body {
   animation: slideOutRight 0.5s ease-in forwards;
 }
 
-/* Responsive */
+/* ===== CORRECCIONES PARA CONTENIDO DESBORDADO EN MÓVILES ===== */
+
+/* Móviles pequeños (menos de 480px) */
 @media (max-width: 480px) {
-  .welcome-notification {
-    top: 10px;
-    right: 10px;
-    left: 10px;
-    width: auto;
+
+  /* EVITAR que el contenido se salga */
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
-  .notification-actions {
+  /* Perfil - evitar que se encimen */
+  .profile-card {
+    margin: 10px 5px;
+    width: calc(100% - 10px);
+  }
+
+  .profile-sidebar,
+  .profile-content {
+    padding: 20px 10px;
+  }
+
+  /* Textos que se salen - forzar ajuste */
+  .user-main h5,
+  .pet-info h5,
+  .section-title,
+  .info-value,
+  .cita-mascota {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    padding: 0 5px;
+  }
+
+  /* Tarjetas de mascotas - evitar encimamiento */
+  .pet-card {
     flex-direction: column;
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 12px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .btn-view-profile,
-  .btn-later {
-    text-align: center;
-    justify-content: center;
+  .pet-info {
+    width: 100%;
+    padding: 0 5px;
   }
+
+  .pet-actions {
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  /* Citas - evitar que se salgan */
+  .cita-card {
+    padding: 12px;
+    margin-bottom: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cita-info {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .cita-detalle {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Información personal - 2 columnas a 1 */
+  .row .col-md-6 {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  /* Botones que se salen */
+  .btn-add-pet,
+  .btn-edit-profile,
+  .btn-cancelar-cita {
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  /* Estados que se salen */
+  .user-status,
+  .estado-cita {
+    font-size: 0.7em;
+    padding: 3px 8px;
+    display: inline-block;
+    max-width: 100px;
+    text-align: center;
+  }
+}
+
+/* Tablets (menos de 768px) */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .profile-card {
+    margin: 15px;
+  }
+
+  /* 2 columnas a 1 columna en tablets */
+  .row .col-md-6 {
+    width: 100%;
+  }
+
+  /* Citas - 2 columnas en tablets */
+  .cita-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustes EXTRA para textos largos */
+.user-main h5,
+.pet-info h5,
+.info-value,
+.cita-mascota {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
+/* Forzar que nada se salga de la pantalla */
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.profile-section,
+.profile-card,
+.pet-card,
+.cita-card {
+  max-width: 100%;
+  box-sizing: border-box;
 }

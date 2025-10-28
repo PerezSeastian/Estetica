@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+date_default_timezone_set('America/Mexico_City');
 $loggedin = isset($_SESSION['loggedin']) && $_SESSION['loggedin'];
 $nombre_usuario = $loggedin ? $_SESSION['nombre_usuario'] : '';
 ?>

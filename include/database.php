@@ -1,10 +1,11 @@
 <?php
 
-function conectarBD() {
-    $usuario = "u191445427_sistestetica";
-    $password = "Estetica+2025";
-    $database = " u191445427_sistestetica";
-    $host = "rv654.hstgr.io";
+function conectarBD()
+{
+    $usuario = "root";
+    $password = "";
+    $database = "estetica";
+    $host = "127.0.0.1";
 
     $con = mysqli_connect($host, $usuario, $password, $database);
 
