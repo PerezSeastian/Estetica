@@ -3,6 +3,9 @@ function saveProfile() {
     const email = document.getElementById('editEmail').value;
     const telefono = document.getElementById('editPhone').value;
     const direccion = document.getElementById('editAddress').value;
+    const colonia = document.getElementById('editColonia').value;
+    const codigo_postal = document.getElementById('editCP').value;
+    const como_nos_conocio = document.getElementById('editReferencia').value;
 
     if (!nombre || !email) {
         alert('Completa nombre y email.');
@@ -21,7 +24,15 @@ function saveProfile() {
     $.ajax({
         url: 'include/guardar_perfil.php',
         type: 'POST',
-        data: { nombre, email, telefono, direccion },
+        data: {
+            nombre,
+            email,
+            telefono,
+            direccion,
+            colonia,
+            codigo_postal,
+            como_nos_conocio
+        },
         dataType: 'json',
         success: (response) => {
             Swal.close();
@@ -30,6 +41,9 @@ function saveProfile() {
                 document.getElementById('userEmail').textContent = email;
                 document.getElementById('userPhone').textContent = telefono;
                 document.getElementById('userAddress').textContent = direccion;
+                document.getElementById('userColonia').textContent = colonia || 'No especificada';
+                document.getElementById('userCP').textContent = codigo_postal || 'No especificado';
+                document.getElementById('userReferencia').textContent = como_nos_conocio || 'No especificado';
                 $('#editProfileModal').modal('hide');
                 Swal.fire('¡Perfecto!', response.message + ' 🐾', 'success');
             } else {
@@ -267,7 +281,7 @@ function cargarMisCitas() {
                     // ✅ CORRECCIÓN: Formateo manual de fecha
                     const partes = cita.fecha.split('-');
                     const fecha = `${partes[2]}/${partes[1]}/${partes[0]}`;
-                    
+
                     const estadoClass = `estado-${cita.estado.toLowerCase().replace(' ', '-')}`;
                     // Solo mostrar botón cancelar si está pendiente
                     const puedeCancelar = cita.estado === 'pendiente';

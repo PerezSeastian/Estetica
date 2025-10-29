@@ -80,7 +80,7 @@ $total_paginas = ceil(count($usuarios) / $usuarios_por_pagina);
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="Admin.html.php">
-                <span class="flaticon-pawprint-1 mr-2"></span> Panel del Admin
+                <span class="flaticon-pawprint-1 mr-2"></span>Panel Admin
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,20 +89,22 @@ $total_paginas = ceil(count($usuarios) / $usuarios_por_pagina);
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="Admin.php" class="nav-link">
-                            <span class="fa fa-users mr-1"></span> Usuarios
+                            <span class="fa fa-users mr-1"></span>Usuarios
                         </a></li>
                     <li class="nav-item"><a href="adminCitas.php" class="nav-link">
-                            <span class="fa fa-calendar mr-1"></span> Agenda
+                            <span class="fa fa-calendar mr-1"></span>Agenda
                         </a></li>
                     <li class="nav-item"><a href="adminHorarios.php" class="nav-link">
-                            <span class="fa fa-clock-o mr-1"></span> Horarios
+                            <span class="fa fa-clock-o mr-1"></span>Horarios
                         </a></li>
-
+                    <li class="nav-item"><a href="adminContactos.php" class="nav-link">
+                            <span class="fa fa-bar-chart mr-1"></span>Contactar
+                        </a></li>
                     <li class="nav-item"><a href="adminReportes.php" class="nav-link">
-                            <span class="fa fa-bar-chart mr-1"></span> Reportes
+                            <span class="fa fa-bar-chart mr-1"></span>Reportes
                         </a></li>
                     <li class="nav-item"><a href="include/logout.php" class="nav-link">
-                            <span class="fa fa-sign-out mr-1"></span> Cerrar Sesión
+                            <span class="fa fa-sign-out mr-1"></span>Cerrar Sesión
                         </a></li>
                 </ul>
             </div>

@@ -13,12 +13,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="Estilos/style.css">
     <link rel="stylesheet" href="Estilos/EstilosAdmin.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="admin-profesional">
@@ -50,7 +57,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="Admin.html.php">
-                <span class="flaticon-pawprint-1 mr-2"></span> Estética canina - Admin
+                <span class="flaticon-pawprint-1 mr-2"></span>Panel Admin
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,8 +74,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
                     <li class="nav-item active"><a href="adminHorarios.php" class="nav-link">
                             <span class="fa fa-clock-o mr-1"></span> Horarios
                         </a></li>
+                    <li class="nav-item"><a href="adminContactos.php" class="nav-link">
+                            <span class="fa fa-bar-chart mr-1"></span>Contactar
+                        </a></li>
                     <li class="nav-item"><a href="adminReportes.php" class="nav-link">
-                            <span class="fa fa-bar-chart mr-1"></span> Reportes
+                            <span class="fa fa-bar-chart mr-1"></span>Reportes
                         </a></li>
                     <li class="nav-item"><a href="include/logout.php" class="nav-link">
                             <span class="fa fa-sign-out mr-1"></span> Cerrar Sesión
@@ -120,95 +130,96 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
         </div>
     </section>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
-<script>
-function cargarHorarios(idSucursal) {
-    fetch(`include/ObtenerHorarios.php?sucursal=${idSucursal}`)
-        .then(res => res.json())
-        .then(data => {
-            if (!data) return;
+    <script>
+        function cargarHorarios(idSucursal) {
+            fetch(`include/ObtenerHorarios.php?sucursal=${idSucursal}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data) return;
 
-            document.getElementById(`apertura${idSucursal}`).value = data.hora_apertura || "";
-            document.getElementById(`cierre${idSucursal}`).value = data.hora_cierre || "";
+                    document.getElementById(`apertura${idSucursal}`).value = data.hora_apertura || "";
+                    document.getElementById(`cierre${idSucursal}`).value = data.hora_cierre || "";
 
-            const contenedor = document.getElementById(`intervalos${idSucursal}`);
-            contenedor.innerHTML = "";
+                    const contenedor = document.getElementById(`intervalos${idSucursal}`);
+                    contenedor.innerHTML = "";
 
-            if (Array.isArray(data.intervalos)) {
-                data.intervalos.forEach(int => {
-                    const div = document.createElement("div");
-                    div.className = "intervalo-item mt-2";
-                    div.innerHTML = `
+                    if (Array.isArray(data.intervalos)) {
+                        data.intervalos.forEach(int => {
+                            const div = document.createElement("div");
+                            div.className = "intervalo-item mt-2";
+                            div.innerHTML = `
                         <input type="time" value="${int.inicio}" class="form-control d-inline w-25"> -
                         <input type="time" value="${int.fin}" class="form-control d-inline w-25">
                         <button class="btn btn-sm btn-danger ml-2 eliminar"><i class="fa fa-trash"></i></button>`;
-                    contenedor.appendChild(div);
+                            contenedor.appendChild(div);
+                        });
+                    }
                 });
-            }
-        });
-}
+        }
 
-// Agregar un nuevo intervalo manualmente
-document.querySelectorAll('.agregar').forEach(btn => {
-    btn.addEventListener('click', function () {
-        const target = document.querySelector(this.dataset.target);
-        const nuevo = document.createElement('div');
-        nuevo.className = 'intervalo-item mt-2';
-        nuevo.innerHTML = `
+        // Agregar un nuevo intervalo manualmente
+        document.querySelectorAll('.agregar').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const target = document.querySelector(this.dataset.target);
+                const nuevo = document.createElement('div');
+                nuevo.className = 'intervalo-item mt-2';
+                nuevo.innerHTML = `
             <input type="time" class="form-control d-inline w-25"> -
             <input type="time" class="form-control d-inline w-25">
             <button class="btn btn-sm btn-danger ml-2 eliminar"><i class="fa fa-trash"></i></button>`;
-        target.appendChild(nuevo);
-    });
-});
+                target.appendChild(nuevo);
+            });
+        });
 
 
-document.addEventListener('click', e => {
-    if (e.target.closest('.eliminar')) {
-        e.target.closest('.intervalo-item').remove();
-    }
-});
+        document.addEventListener('click', e => {
+            if (e.target.closest('.eliminar')) {
+                e.target.closest('.intervalo-item').remove();
+            }
+        });
 
-function guardarHorarios(idSucursal) {
-    const horaApertura = document.getElementById(`apertura${idSucursal}`).value;
-    const horaCierre = document.getElementById(`cierre${idSucursal}`).value;
+        function guardarHorarios(idSucursal) {
+            const horaApertura = document.getElementById(`apertura${idSucursal}`).value;
+            const horaCierre = document.getElementById(`cierre${idSucursal}`).value;
 
-    const intervalos = [];
-    document.querySelectorAll(`#intervalos${idSucursal} .intervalo-item`).forEach(div => {
-        const [inicio, fin] = div.querySelectorAll("input[type='time']");
-        if (inicio.value && fin.value) {
-            intervalos.push({ inicio: inicio.value, fin: fin.value });
+            const intervalos = [];
+            document.querySelectorAll(`#intervalos${idSucursal} .intervalo-item`).forEach(div => {
+                const [inicio, fin] = div.querySelectorAll("input[type='time']");
+                if (inicio.value && fin.value) {
+                    intervalos.push({ inicio: inicio.value, fin: fin.value });
+                }
+            });
+
+            fetch("include/GuardarHorarios.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    sucursal: idSucursal,
+                    apertura: horaApertura,
+                    cierre: horaCierre,
+                    intervalos: intervalos
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire('Guardado', 'Los horarios fueron actualizados correctamente', 'success');
+                    } else {
+                        Swal.fire('Error', data.message, 'error');
+                    }
+                })
+                .catch(() => Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error'));
         }
-    });
-
-    fetch("include/GuardarHorarios.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            sucursal: idSucursal,
-            apertura: horaApertura,
-            cierre: horaCierre,
-            intervalos: intervalos
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire('Guardado', 'Los horarios fueron actualizados correctamente', 'success');
-        } else {
-            Swal.fire('Error', data.message, 'error');
-        }
-    })
-    .catch(() => Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error'));
-}
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    cargarHorarios(1);
-});
-</script>
+        document.addEventListener("DOMContentLoaded", () => {
+            cargarHorarios(1);
+        });
+    </script>
 
 </body>
+
 </html>

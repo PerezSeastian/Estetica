@@ -10,7 +10,7 @@ require_once 'include/database.php';
 $conexion = conectarBD();
 
 $id_usuario = $_SESSION['id_usuario'];
-$sql_usuario = "SELECT nombre_completo, correo, telefono, direccion FROM usuarios WHERE id_usuario = $id_usuario";
+$sql_usuario = "SELECT nombre_completo, correo, telefono, direccion, colonia, codigo_postal, como_nos_conocio FROM usuarios WHERE id_usuario = $id_usuario";
 $resultado_usuario = $conexion->query($sql_usuario);
 $usuario = $resultado_usuario->fetch_assoc();
 
@@ -131,6 +131,12 @@ $mascotas = $resultado_mascotas->fetch_all(MYSQLI_ASSOC);
                                                     <?php echo $usuario['telefono']; ?>
                                                 </div>
                                             </div>
+                                            <div class="info-group">
+                                                <div class="info-label">Colonia</div>
+                                                <div class="info-value" id="userColonia">
+                                                    <?php echo $usuario['colonia'] ?: 'No especificada'; ?>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="info-group">
@@ -140,11 +146,25 @@ $mascotas = $resultado_mascotas->fetch_all(MYSQLI_ASSOC);
                                                 </div>
                                             </div>
                                             <div class="info-group">
-                                                <div class="info-label">Perfil</div>
-                                                <div class="info-value" id="userSince">Miembro Activo</div>
+                                                <div class="info-label">Código Postal</div>
+                                                <div class="info-value" id="userCP">
+                                                    <?php echo $usuario['codigo_postal'] ?: 'No especificado'; ?>
+                                                </div>
+                                            </div>
+                                            <div class="info-group">
+                                                <div class="info-label">Cómo nos conoció</div>
+                                                <div class="info-value" id="userReferencia"><?php
+                                                if ($usuario['como_nos_conocio']) {
+                                                    echo $usuario['como_nos_conocio'];
+                                                } else {
+                                                    echo 'No especificado';
+                                                }
+                                                ?></div>
                                             </div>
                                         </div>
                                     </div>
+
+
 
                                     <!-- Sección de Mascotas -->
                                     <div class="pets-section">
@@ -254,7 +274,30 @@ $mascotas = $resultado_mascotas->fetch_all(MYSQLI_ASSOC);
                         <div class="form-group">
                             <label for="editAddress">Dirección</label>
                             <textarea class="form-control" id="editAddress"
-                                rows="3"><?php echo $usuario['direccion']; ?></textarea>
+                                rows="2"><?php echo $usuario['direccion']; ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editColonia">Colonia</label>
+                            <input type="text" class="form-control" id="editColonia"
+                                value="<?php echo $usuario['colonia']; ?>" placeholder="Ej: Centro, Del Valle, etc.">
+                        </div>
+                        <div class="form-group">
+                            <label for="editCP">Código Postal</label>
+                            <input type="text" class="form-control" id="editCP"
+                                value="<?php echo $usuario['codigo_postal']; ?>" placeholder="Ej: 01000" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="editReferencia">¿Cómo nos conoció?</label>
+                            <select class="form-control" id="editReferencia">
+                                <option value="">Selecciona una opción</option>
+                                <option value="Facebook" <?php echo ($usuario['como_nos_conocio'] == 'Facebook') ? 'selected' : ''; ?>>Facebook</option>
+                                <option value="Instagram" <?php echo ($usuario['como_nos_conocio'] == 'Instagram') ? 'selected' : ''; ?>>Instagram</option>
+                                <option value="Twitter/X" <?php echo ($usuario['como_nos_conocio'] == 'Twitter/X') ? 'selected' : ''; ?>>Twitter/X</option>
+                                <option value="Volantes" <?php echo ($usuario['como_nos_conocio'] == 'Volantes') ? 'selected' : ''; ?>>Volantes</option>
+                                <option value="Conocidos" <?php echo ($usuario['como_nos_conocio'] == 'Conocidos') ? 'selected' : ''; ?>>Conocidos</option>
+                                <option value="Vio el local" <?php echo ($usuario['como_nos_conocio'] == 'Vio el local') ? 'selected' : ''; ?>>Vio el local</option>
+                                <option value="Otro" <?php echo ($usuario['como_nos_conocio'] == 'Otro') ? 'selected' : ''; ?>>Otro</option>
+                            </select>
                         </div>
                     </form>
                 </div>
