@@ -834,3 +834,57 @@
         grid-template-columns: 1fr;
     }
 }
+/* Estilos para gráficas */
+.grafica-container {
+    position: relative;
+    height: 200px;
+    margin: 15px 0;
+}
+
+.grafica-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+
+.leyenda-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.leyenda-texto {
+    color: #333;
+    font-weight: 500;
+}
+
+/* Colores para las gráficas */
+.color-asistio { background-color: #28a745; }
+.color-no-asistio { background-color: #dc3545; }
+.color-pendiente { background-color: #ffc107; }
+.color-completado { background-color: #28a745; }
+.color-cancelado { background-color: #dc3545; }
+.color-proceso { background-color: #17a2b8; }
+
+@media (max-width: 768px) {
+    .grafica-container {
+        height: 180px;
+    }
+    
+    .grafica-leyenda {
+        gap: 8px;
+    }
+    
+    .leyenda-item {
+        font-size: 0.75rem;
+    }
+}
