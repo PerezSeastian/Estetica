@@ -145,9 +145,6 @@ $total_paginas = ceil(count($clientes_contactar) / $clientes_por_pagina);
                     <li class="nav-item"><a href="adminHorarios.php" class="nav-link">
                             <span class="fa fa-clock-o mr-1"></span>Horarios
                         </a></li>
-                    <li class="nav-item active"><a href="adminContactos.php" class="nav-link">
-                            <span class="fa fa-bar-chart mr-1"></span>Contactar
-                        </a></li>
                     <li class="nav-item"><a href="adminReportes.php" class="nav-link">
                             <span class="fa fa-bar-chart mr-1"></span>Reportes
                         </a></li>
