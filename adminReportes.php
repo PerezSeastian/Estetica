@@ -113,14 +113,15 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                                 </div>
 
                                 <!-- Botón 2: Próximamente -->
-                                <div class="reporte-card proximamente">
+                                <!-- Botón 6: Citas de Hoy -->
+                                <div class="reporte-card" onclick="window.location.href='adminReporteCitasHoy.php'">
                                     <div class="reporte-icon">
-                                        <span class="fa fa-bar-chart"></span>
+                                        <span class="fa fa-calendar-check-o"></span>
                                     </div>
                                     <div class="reporte-content">
-                                        <h5>proximamente</h5>
-                                        <p>---(Breve descripción)---</p>
-                                        <div class="reporte-badge">No disponible</div>
+                                        <h5>Citas de Hoy</h5>
+                                        <p>Reporte completo de citas del día</p>
+                                        <div class="reporte-badge activo">Disponible</div>
                                     </div>
                                 </div>
 
@@ -130,7 +131,7 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                                         <span class="fa fa-calendar"></span>
                                     </div>
                                     <div class="reporte-content">
-                                       <h5>proximamente</h5>
+                                        <h5>proximamente</h5>
                                         <p>---(Breve descripción)---</p>
                                         <div class="reporte-badge">No disponible</div>
                                     </div>
