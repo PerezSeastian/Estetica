@@ -134,17 +134,18 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                                 </div>
 
                                 <!-- Botón 4: Próximamente -->
-                                <div class="reporte-card proximamente">
-                                    <div class="reporte-icon">
-                                        <span class="fa fa-paw"></span>
+                                <a href="reporte-servicios.php" class="reporte-card-link">
+                                    <div class="reporte-card">
+                                        <div class="reporte-icon">
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                        <div class="reporte-content">
+                                            <h5>Servicios Más Solicitados</h5>
+                                            <p>Análisis de popularidad y tendencias de servicios por mes</p>
+                                            <div class="reporte-badge">Disponible</div>
+                                        </div>
                                     </div>
-                                    <div class="reporte-content">
-                                        <h5>proximamente</h5>
-                                        <p>---(Breve descripción)---</p>
-                                        <div class="reporte-badge">No disponible</div>
-                                    </div>
-                                </div>
-
+                                </a>
                                 <!-- Botón 5: Próximamente -->
                                 <div class="reporte-card proximamente">
                                     <div class="reporte-icon">

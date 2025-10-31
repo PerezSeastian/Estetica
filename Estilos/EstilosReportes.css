@@ -971,3 +971,170 @@
         margin-bottom: 5px;
     }
 }
+/* Estilos específicos para reporte de servicios */
+
+/* Ranking de servicios */
+.ranking-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #007bff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ranking-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ranking-item.ranking-top {
+    background: linear-gradient(135deg, #fff3cd, #ffffff);
+    border-left-color: #ffc107;
+}
+
+.ranking-posicion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+    min-width: 50px;
+}
+
+.ranking-emoji {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.ranking-numero {
+    font-size: 12px;
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.ranking-info {
+    flex: 1;
+}
+
+.ranking-servicio {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.ranking-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.ranking-citas {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 13px;
+}
+
+.ranking-porcentaje {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 13px;
+}
+
+.ranking-bar {
+    width: 100%;
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.ranking-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border-radius: 3px;
+    transition: width 1s ease-in-out;
+}
+
+/* Leyenda mejorada */
+.leyenda-header {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    margin: -10px -10px 10px -10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Scroll personalizado */
+.ranking-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ranking-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.ranking-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.ranking-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Badges para tendencias */
+.badge-success { background: linear-gradient(135deg, #28a745, #20c997); }
+.badge-warning { background: linear-gradient(135deg, #ffc107, #fd7e14); }
+.badge-secondary { background: linear-gradient(135deg, #6c757d, #495057); }
+
+/* Progress bars personalizados */
+.progress {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para dropdown de reportes */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 2px 5px;
+    width: auto;
+}
+
+.dropdown-item:hover {
+    background: #007bff;
+    color: white;
+}
+
+.dropdown-item.active {
+    background: #007bff;
+    color: white;
+}
