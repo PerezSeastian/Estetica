@@ -659,6 +659,7 @@
 .reporte-card.proximamente:hover::before {
     left: 100%;
 }
+
 /* Estilos para Reportes */
 .reportes-grid {
     display: grid;
@@ -672,7 +673,7 @@
     border-radius: 15px;
     padding: 25px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     cursor: pointer;
     border: 2px solid transparent;
@@ -680,7 +681,7 @@
 
 .reporte-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     border-color: #007bff;
 }
 
@@ -691,7 +692,7 @@
 
 .reporte-card.proximamente:hover {
     transform: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     border-color: transparent;
 }
 
@@ -737,7 +738,7 @@
     border-radius: 10px;
     padding: 25px;
     margin-bottom: 5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-left: 4px solid #007bff;
 }
 
@@ -766,7 +767,7 @@
     border-radius: 10px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-left: 4px solid;
     transition: transform 0.3s ease;
 }
@@ -818,22 +819,23 @@
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .seccion-header {
         flex-direction: column;
         gap: 10px;
         text-align: center;
     }
-    
+
     .stat-card {
         margin-bottom: 10px;
-    
+
     }
-    
+
     .reportes-grid {
         grid-template-columns: 1fr;
     }
 }
+
 /* Estilos para gráficas */
 .grafica-container {
     position: relative;
@@ -868,23 +870,104 @@
 }
 
 /* Colores para las gráficas */
-.color-asistio { background-color: #28a745; }
-.color-no-asistio { background-color: #dc3545; }
-.color-pendiente { background-color: #ffc107; }
-.color-completado { background-color: #28a745; }
-.color-cancelado { background-color: #dc3545; }
-.color-proceso { background-color: #17a2b8; }
+.color-asistio {
+    background-color: #28a745;
+}
+
+.color-no-asistio {
+    background-color: #dc3545;
+}
+
+.color-pendiente {
+    background-color: #ffc107;
+}
+
+.color-completado {
+    background-color: #28a745;
+}
+
+.color-cancelado {
+    background-color: #dc3545;
+}
+
+.color-proceso {
+    background-color: #17a2b8;
+}
 
 @media (max-width: 768px) {
     .grafica-container {
         height: 180px;
     }
-    
+
     .grafica-leyenda {
         gap: 8px;
     }
-    
+
     .leyenda-item {
         font-size: 0.75rem;
+    }
+}
+
+
+/* Estilos específicos para el reporte de cómo nos conocieron */
+.resumen-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 5px 0;
+}
+
+.resumen-valor {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.resumen-label {
+    font-size: 14px;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.grafica-leyenda {
+    margin-top: 15px;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    padding: 5px;
+    border-radius: 5px;
+    background: #f8f9fa;
+}
+
+.leyenda-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leyenda-texto {
+    font-size: 14px;
+    flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .resumen-valor {
+        font-size: 20px;
+    }
+
+    .leyenda-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .leyenda-color {
+        margin-bottom: 5px;
     }
 }
