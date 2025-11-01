@@ -971,6 +971,7 @@
         margin-bottom: 5px;
     }
 }
+
 /* Estilos específicos para reporte de servicios */
 
 /* Ranking de servicios */
@@ -992,7 +993,7 @@
 
 .ranking-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .ranking-item.ranking-top {
@@ -1095,9 +1096,17 @@
 }
 
 /* Badges para tendencias */
-.badge-success { background: linear-gradient(135deg, #28a745, #20c997); }
-.badge-warning { background: linear-gradient(135deg, #ffc107, #fd7e14); }
-.badge-secondary { background: linear-gradient(135deg, #6c757d, #495057); }
+.badge-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+}
+
+.badge-secondary {
+    background: linear-gradient(135deg, #6c757d, #495057);
+}
 
 /* Progress bars personalizados */
 .progress {
@@ -1118,7 +1127,7 @@
 /* Estilos para dropdown de reportes */
 .dropdown-menu {
     border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
@@ -1137,4 +1146,237 @@
 .dropdown-item.active {
     background: #007bff;
     color: white;
+}
+
+/* ==================== */
+/* ESTILOS RESPONSIVOS */
+/* ==================== */
+
+/* Tablets (768px y menos) */
+@media (max-width: 768px) {
+
+    /* Header de sección */
+    .section-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    /* Grid de clientes */
+    .clientes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Header de cliente */
+    .cliente-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    /* Selector de fecha */
+    .fecha-selector {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Grid de reportes */
+    .reportes-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Tarjetas de reporte */
+    .reporte-card {
+        padding: 1.25rem;
+    }
+
+    /* Iconos de reporte */
+    .reporte-icon {
+        font-size: 2rem;
+    }
+
+    /* Tarjetas de estadísticas */
+    .stat-card {
+        margin-bottom: 10px;
+    }
+
+    /* Contenedor de gráficas */
+    .grafica-container {
+        height: 180px;
+    }
+
+    /* Leyenda de gráficas */
+    .grafica-leyenda {
+        gap: 8px;
+    }
+
+    .leyenda-item {
+        font-size: 0.75rem;
+    }
+
+    /* Items de leyenda */
+    .leyenda-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .leyenda-color {
+        margin-bottom: 5px;
+    }
+
+    /* Valores de resumen */
+    .resumen-valor {
+        font-size: 20px;
+    }
+}
+
+/* Teléfonos pequeños (576px y menos) */
+@media (max-width: 576px) {
+
+    /* Sección de reportes */
+    .report-section {
+        padding: 20px 15px;
+        margin-top: 15px;
+    }
+
+    /* Grid de clientes */
+    .clientes-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Tarjetas de cliente */
+    .cliente-card {
+        padding: 20px;
+    }
+
+    /* Acciones de cliente */
+    .cliente-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-action {
+        width: 100%;
+    }
+
+    /* Botones de paginación */
+    .paginacion-botones {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-pagina {
+        text-align: center;
+        justify-content: center;
+    }
+
+    /* Tarjetas de métricas */
+    .metrica-card {
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+
+    .metrica-icon {
+        font-size: 2rem;
+        margin-right: 10px;
+    }
+
+    .metrica-valor {
+        font-size: 1.5rem;
+    }
+
+    /* Secciones de reporte */
+    .reporte-seccion {
+        padding: 20px 15px;
+    }
+
+    /* Header de sección */
+    .seccion-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    /* Grid de estadísticas */
+    .reportes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Gráficas en móviles */
+    .grafica-container {
+        height: 160px;
+    }
+
+    /* Ranking items */
+    .ranking-item {
+        padding: 10px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .ranking-posicion {
+        margin-right: 0;
+        margin-bottom: 8px;
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .ranking-stats {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* Teléfonos muy pequeños (360px y menos) */
+@media (max-width: 360px) {
+
+    /* Ajustes adicionales para pantallas muy pequeñas */
+    .report-section {
+        padding: 15px 10px;
+    }
+
+    .cliente-card {
+        padding: 15px;
+    }
+
+    .btn-action {
+        padding: 10px 15px;
+        font-size: 0.8em;
+    }
+
+    .reporte-card {
+        padding: 15px 10px;
+    }
+
+    .reporte-icon {
+        font-size: 1.8rem;
+    }
+
+    .grafica-container {
+        height: 140px;
+    }
+}
+
+/* Orientación landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .clientes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grafica-container {
+        height: 150px;
+    }
+}
+
+/* Ajustes para tablets en modo portrait */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .clientes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .reportes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

@@ -142,7 +142,7 @@ $nombre_admin = $_SESSION['nombre_usuario'] ?? 'Admin';
                                         <div class="reporte-content">
                                             <h5>Servicios Más Solicitados</h5>
                                             <p>Análisis de popularidad y tendencias de servicios por mes</p>
-                                            <div class="reporte-badge">Disponible</div>
+                                            <div class="reporte-badge activo">Disponible</div>
                                         </div>
                                     </div>
                                 </a>
